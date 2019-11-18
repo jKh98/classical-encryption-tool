@@ -4,6 +4,7 @@ import {Col, Input, PageHeader, Row, Skeleton} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainer from "../TextContainer";
+import {affineEncrypt} from "../../utils/crypoFunctions";
 
 const {TextArea} = Input;
 
@@ -16,7 +17,10 @@ class Affine extends Component {
     };
 
     handleTextChange(value) {
-        this.setState({plainText: value});
+        this.setState({
+            plainText: value,
+            cipherText: affineEncrypt(15,8,value),
+        });
     }
 
     render() {
@@ -42,7 +46,7 @@ class Affine extends Component {
                     <Row type="flex" justify="space-around" align="middle">
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
-                            <TextArea rows={6} value={this.state.plainText}/>
+                            <TextArea rows={6} value={this.state.cipherText}/>
                         </Col>
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
