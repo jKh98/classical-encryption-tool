@@ -21,24 +21,38 @@ class TextContainer extends Component {
             {key: 3, value: 'Hexadecimal'},
         ],
         mode: 'Text',
-        text: 'Hello',
+        text: this.props.text,
     };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.text !== prevState.text) {
+            this.setState({text: this.props.text});
+        }
+    }
 
     handleChange(value) {
         let s;
         switch (value) {
             case 'Binary':
-                s  = this.state.mode === 'Text'?text2Binary(this.state.text):hex2Binary(this.state.text);
+                if (this.state.mode === 'Text')
+                    s = text2Binary(this.state.text);
+                else if (this.state.mode === 'Hexadecimal')
+                    s = hex2Binary(this.state.text);
                 break;
             case 'Hexadecimal':
-                s  = this.state.mode === 'Text'?text2Hex(this.state.text):binary2Hex(this.state.text);
+                if (this.state.mode === 'Text')
+                    s = text2Hex(this.state.text);
+                else if (this.state.mode === 'Binary')
+                    s = binary2Hex(this.state.text);
                 break;
             case 'Text':
             default:
-                s  = this.state.mode === 'Binary'?binary2Text(this.state.text):hex2Text(this.state.text);
+                if (this.state.mode === 'Binary')
+                    s = binary2Text(this.state.text);
+                else if (this.state.mode === 'Hexadecimal')
+                    s = hex2Text(this.state.text);
                 break;
         }
-
         this.setState({
             mode: value,
             text: s,

@@ -5,9 +5,9 @@ export const affineEncrypt = (a, b, text) => {
     a = parseInt(a);
     b = parseInt(b);
     for (let i = 0; i < text.length; i++) {
-        let alphaIndex = (text[i]===text[i].toUpperCase())?alphaUpper.indexOf(text[i]):alpha.indexOf(text[i]);
+        let alphaIndex = (text[i] === text[i].toUpperCase()) ? alphaUpper.indexOf(text[i]) : alpha.indexOf(text[i]);
         let newIndex = (a * alphaIndex + b) % alpha.length;
-        let s = text[i].match(/[a-z]/i)?((text[i]===text[i].toUpperCase())?alphaUpper[newIndex]:alpha[newIndex]):text[i];
+        let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? alphaUpper[newIndex] : alpha[newIndex]) : text[i];
         text = text.toString().substring(0, i) + s + text.toString().substring(i + 1);
     }
     return text;
@@ -23,11 +23,11 @@ export const affineDecrypt = (a, b, text) => {
             if ((a * j) % alpha.length === 1)
                 invert = j;
         }
-        let alphaIndex = (text[i]===text[i].toUpperCase())?alphaUpper.indexOf(text[i]):alpha.indexOf(text[i]);
+        let alphaIndex = (text[i] === text[i].toUpperCase()) ? alphaUpper.indexOf(text[i]) : alpha.indexOf(text[i]);
         let newIndex = (invert * (alphaIndex - b)) % alpha.length;
         if (newIndex < 0)
             newIndex += alpha.length;
-        let s = text[i].match(/[a-z]/i)?((text[i]===text[i].toUpperCase())?alphaUpper[newIndex]:alpha[newIndex]):text[i];
+        let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? alphaUpper[newIndex] : alpha[newIndex]) : text[i];
         text = text.toString().substring(0, i) + s + text.toString().substring(i + 1);
     }
     return text;

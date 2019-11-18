@@ -4,22 +4,28 @@ import {Col, Input, PageHeader, Row, Skeleton} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainer from "../TextContainer";
-import {affineEncrypt} from "../../utils/crypoFunctions";
-
-const {TextArea} = Input;
+import {affineDecrypt, affineEncrypt} from "../../utils/crypoFunctions";
 
 class Affine extends Component {
 
     state = {
         plainText: '',
         cipherText: '',
-        mode: 'text',
+        plainTextMode: 'Text',
+        cipherTextMode: 'text',
     };
 
-    handleTextChange(value) {
+    handlePlainTextChange(value) {
         this.setState({
             plainText: value,
-            cipherText: affineEncrypt(15,8,value),
+            cipherText: affineEncrypt(15, 8, value),
+        });
+    }
+
+    handleCipherTextChange(value) {
+        this.setState({
+            plainText: affineDecrypt(15, 8, value),
+            cipherText: value,
         });
     }
 
@@ -36,7 +42,8 @@ class Affine extends Component {
                     <Row type="flex" justify="space-around" align="middle">
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
-                            <TextContainer handleTextChange={this.handleTextChange.bind(this)}/>
+                            <TextContainer text={this.state.plainText}
+                                           handleTextChange={this.handlePlainTextChange.bind(this)}/>
                         </Col>
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
@@ -46,7 +53,8 @@ class Affine extends Component {
                     <Row type="flex" justify="space-around" align="middle">
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
-                            <TextArea rows={6} value={this.state.cipherText}/>
+                            <TextContainer text={this.state.cipherText}
+                                           handleTextChange={this.handleCipherTextChange.bind(this)}/>
                         </Col>
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
