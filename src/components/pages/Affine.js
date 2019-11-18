@@ -1,10 +1,23 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Col, PageHeader, Row, Skeleton} from "antd";
+import {Col, Input, PageHeader, Row, Skeleton} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
+import TextContainer from "../TextContainer";
+
+const {TextArea} = Input;
 
 class Affine extends Component {
+
+    state = {
+        plainText: '',
+        cipherText: '',
+        mode: 'text',
+    };
+
+    handleTextChange(value) {
+        this.setState({plainText: value});
+    }
 
     render() {
         return (
@@ -19,7 +32,17 @@ class Affine extends Component {
                     <Row type="flex" justify="space-around" align="middle">
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>
+                            <TextContainer handleTextChange={this.handleTextChange.bind(this)}/>
+                        </Col>
+                        <Col lg={11} md={23} sm={23} xs={23}
+                             style={{padding: 8, background: '#fff'}}>
                             <Skeleton/>
+                        </Col>
+                    </Row>
+                    <Row type="flex" justify="space-around" align="middle">
+                        <Col lg={11} md={23} sm={23} xs={23}
+                             style={{padding: 8, background: '#fff'}}>
+                            <TextArea rows={6} value={this.state.plainText}/>
                         </Col>
                         <Col lg={11} md={23} sm={23} xs={23}
                              style={{padding: 8, background: '#fff'}}>

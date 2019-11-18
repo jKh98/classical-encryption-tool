@@ -12,11 +12,7 @@ export class MainMenu extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.setState({
-            current: this.props.selected,
-        })
     }
-
 
     changeTheme = value => {
         this.setState({
