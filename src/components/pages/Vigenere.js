@@ -57,7 +57,8 @@ class Vigenere extends Component {
 
     handleKeyChange(event) {
         this.setState({
-            key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
+            key: event.target.value,
+            // key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
         }, () => this.handlePlainTextChange(this.state.plainText));
     }
 

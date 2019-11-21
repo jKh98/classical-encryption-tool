@@ -63,31 +63,45 @@ export const getVigenereKey = (str) => {
     return key;
 };
 
-export const vigenereEncrypt = (keyword, word) => {
-    let encryptWord = "";
+export const vigenereEncrypt = (keyword, text) => {
+    let temp = "";
+    let word = text.replace(/\W/g, '')
     for (let i = 0; i < word.length; i++) {
-        let s = word[i];
-        if (s.match(/[a-z]/i)) {
-            let upper = word[i] === word[i].toUpperCase();
-            s = alpha[(alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
-            s = upper ? s.toUpperCase() : s;
-        }
-        encryptWord += s;
+        let upper = word[i] === word[i].toUpperCase();
+        let s = alpha[(alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
+        s = upper ? s.toUpperCase() : s;
+        temp += s;
     }
-    return encryptWord;
+    let encrypt = '';
+    for (let i = 0, j = 0; i < text.length && j < temp.length; i++) {
+        if (text[i].match(/[a-z]/i)) {
+            encrypt += temp[j];
+            j++;
+        } else {
+            encrypt += text[i];
+        }
+    }
+    return encrypt;
 };
 
-export const vigenereDecrypt = (keyword, word) => {
-    let decryptWord = "";
+export const vigenereDecrypt = (keyword, text) => {
+    let temp = "";
+    let word = text.replace(/\W/g, '')
     for (let i = 0; i < word.length; i++) {
-        let s = word[i];
-        if (s.match(/[a-z]/i)) {
-            let upper = word[i] === word[i].toUpperCase();
-            s = alpha[((alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.length) - alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
-            s = upper ? s.toUpperCase() : s;
-        }
-        decryptWord += s;
+        let upper = word[i] === word[i].toUpperCase();
+        let s = alpha[((alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.length) - alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
+        s = upper ? s.toUpperCase() : s;
+        temp += s;
     }
-    return decryptWord;
+    let decrypt = '';
+    for (let i = 0, j = 0; i < text.length && j < temp.length; i++) {
+        if (text[i].match(/[a-z]/i)) {
+            decrypt += temp[j];
+            j++;
+        } else {
+            decrypt += text[i];
+        }
+    }
+    return decrypt;
 };
 
