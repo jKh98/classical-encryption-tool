@@ -41,7 +41,7 @@ class TextContainerCoupler extends Component {
     render() {
         return (
             <div className="TextContainerCoupler">
-                <Row style={{minHeight: 300}}>
+                <Row>
                     <TextContainer title={'Plain Text'}
                                    mode={this.state.plainTextMode}
                                    text={this.state.plainText}
@@ -49,7 +49,7 @@ class TextContainerCoupler extends Component {
                                    handleModeChange={this.handlePlainTextModeChange.bind(this)}/>
                 </Row>
                 <br/>
-                <Row style={{minHeight: 300}}>
+                <Row>
                     <TextContainer title={'Cipher Text'}
                                    mode={this.state.cipherTextMode}
                                    text={this.state.cipherText}

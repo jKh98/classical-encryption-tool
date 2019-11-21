@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Col, PageHeader, Row, Skeleton} from "antd";
+import {Card, Col, Form, Input, InputNumber, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
 import {affineDecrypt, affineEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
+import {getFrequency} from "../../utils/generalFunctions";
+
+const a = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
+const InputGroup = Input.Group;
 
 class Affine extends Component {
 
@@ -14,21 +18,30 @@ class Affine extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
+        a: a[2],
+        b: 8,
+        data: [],
     };
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(affineEncrypt(15, 8, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(affineEncrypt(this.state.a, this.state.b, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
-        });
+        }, () => this.updateGraph());
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(affineDecrypt(15, 8, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(affineDecrypt(this.state.a, this.state.b, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
+        });
+    }
+
+    updateGraph() {
+        this.setState({
+            data: getFrequency(this.state.cipherText),
         });
     }
 
@@ -46,19 +59,25 @@ class Affine extends Component {
         }, () => this.handleCipherTextChange(ct));
     }
 
+    handleValuesOfA(value) {
+        this.setState({a: a[Number(value)]}, () => this.handlePlainTextChange(this.state.plainText));
+    }
+
+    handleValuesOfB(value) {
+        this.setState({b: Number(value)}, () => this.handlePlainTextChange(this.state.plainText));
+    }
+
     render() {
         return (
             <div className="Affine">
                 <div>
                     <PageHeader
-                        title='Affine Cipher'
-                    >
+                        title='Affine Cipher'>
                     </PageHeader>
                 </div>
-                <div style={{padding: 24, background: '#fff', minHeight: 600}}>
-                    <Row type="flex" justify="space-around" align="middle">
-                        <Col lg={11} md={23} sm={23} xs={23}
-                             style={{padding: 8, background: '#fff'}}>
+                <div>
+                    <Row type="flex" justify="space-around" align="top">
+                        <Col lg={11} md={23} sm={23} xs={23}>
                             <TextContainerCoupler plainText={this.state.plainText}
                                                   cipherText={this.state.cipherText}
                                                   plainTextMode={this.state.plainTextMode}
@@ -68,16 +87,32 @@ class Affine extends Component {
                                                   handlePlainTextModeChange={this.handlePlainTextModeChange.bind(this)}
                                                   handleCipherTextModeChange={this.handleCipherTextModeChange.bind(this)}/>
                         </Col>
-                        <Col lg={11} md={23} sm={23} xs={23}
-                             style={{padding: 8, background: '#fff'}}>
-                            <Row style={{minHeight: 240}}>
-                                <Skeleton/>
+                        <Col lg={11} md={23} sm={23} xs={23}>
+                            <Row>
+                                <Card title="Encryption Parameters" bordered={false}>
+                                    <Form layout={"inline"}>
+                                        <Form.Item label={"SLOPE / A"}>
+                                            <InputNumber size="medium" min={0} max={11}
+                                                         formatter={value => (a[value])}
+                                                         defaultValue={2}
+                                                         onChange={this.handleValuesOfA.bind(this)}/>
+                                        </Form.Item>
+                                        <Form.Item label={"INTERCEPT / B"}>
+                                            <InputNumber size="medium" min={1} max={100000}
+                                                         defaultValue={this.state.b}
+                                                         onChange={this.handleValuesOfB.bind(this)}/>
+                                        </Form.Item>
+                                    </Form>
+                                </Card>
                             </Row>
                             <br/>
-                            <Row style={{minHeight: 240}}>
-                                <Delayed waitBeforeShow={500}>
-                                    <CustomGraph type='bar'/>
-                                </Delayed>
+                            <Row>
+                                <Card title="Letter Frequency" bordered={false}>
+                                    <Delayed waitBeforeShow={500}>
+                                        <CustomGraph type='line'
+                                                     data={this.state.data}/>
+                                    </Delayed>
+                                </Card>
                             </Row>
                         </Col>
                     </Row>

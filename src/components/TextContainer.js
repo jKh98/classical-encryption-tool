@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import '../utils/conversions'
-import {Input, Layout, Select} from "antd";
+import {Card, Input, Layout, Select} from "antd";
 
 const {Option} = Select;
 
@@ -41,23 +41,21 @@ class TextContainer extends Component {
 
     render() {
         return (
-            <Layout style={{background: '#fff'}}>
-                <InputGroup compact>
-                    <h2 style={{width: '70%'}}>
-                        {this.state.title}
-                    </h2>
-                    <Select style={{width: '30%'}}
+            <Layout>
+                <Card title={this.state.title} bordered={false} extra={<InputGroup compact>
+                    <Select style={{width: 150}}
                             defaultValue={this.state.modes[0].value}
                             onChange={this.handleModeChange.bind(this)}>
                         {this.state.modes.map((e, key) => {
                             return <Option key={key} value={e.value}>{e.value}</Option>;
                         })}
                     </Select>
-                </InputGroup>
-                < br/>
-                <TextArea rows={6}
-                          onChange={this.handleTextChange.bind(this)}
-                          value={this.state.text}/>
+                </InputGroup>}>
+                    <TextArea rows={8}
+                              onChange={this.handleTextChange.bind(this)}
+                              on
+                              value={this.state.text}/>
+                </Card>
             </Layout>
         );
     }
