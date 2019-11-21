@@ -58,9 +58,36 @@ export const getVigenereKey = (str) => {
             i = 0;
         if (key.length === 26)
             break;
-        key += (str.charAt(i));
+        key += (str[i]);
     }
     return key;
 };
 
+export const vigenereEncrypt = (keyword, word) => {
+    let encryptWord = "";
+    for (let i = 0; i < word.length; i++) {
+        let s = word[i];
+        if (s.match(/[a-z]/i)) {
+            let upper = word[i] === word[i].toUpperCase();
+            s = alpha[(alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
+            s = upper ? s.toUpperCase() : s;
+        }
+        encryptWord += s;
+    }
+    return encryptWord;
+};
+
+export const vigenereDecrypt = (keyword, word) => {
+    let decryptWord = "";
+    for (let i = 0; i < word.length; i++) {
+        let s = word[i];
+        if (s.match(/[a-z]/i)) {
+            let upper = word[i] === word[i].toUpperCase();
+            s = alpha[((alpha.indexOf(upper ? word[i].toLowerCase() : word[i]) + alpha.length) - alpha.indexOf(keyword[i % keyword.length])) % alpha.length];
+            s = upper ? s.toUpperCase() : s;
+        }
+        decryptWord += s;
+    }
+    return decryptWord;
+};
 

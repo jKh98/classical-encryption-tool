@@ -1,26 +1,26 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Button, Card, Col, Form, Input, PageHeader, Row} from "antd";
+import {Card, Col, Form, Input, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {monoAlphabeticDecrypt, monoAlphabeticEncrypt} from "../../utils/crypoFunctions";
+import {getVigenereKey, vigenereDecrypt, vigenereEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
-class MonoAlphabetic extends Component {
+class Vigenere extends Component {
 
     state = {
         plainText: 'hello',
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
-        key: 'abcdefghijklmnopqrstuvwxyz',
+        key: 'vigenere',
         data: [],
     };
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(monoAlphabeticEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(vigenereEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
@@ -28,7 +28,7 @@ class MonoAlphabetic extends Component {
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(monoAlphabeticDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(vigenereDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
@@ -55,20 +55,18 @@ class MonoAlphabetic extends Component {
         }, () => this.handleCipherTextChange(ct));
     }
 
-    handleButtonClick() {
+    handleKeyChange(event) {
         this.setState({
-            key: this.state.key.split('').sort(function () {
-                return 0.5 - Math.random()
-            }).join(''),
+            key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
         }, () => this.handlePlainTextChange(this.state.plainText));
     }
 
     render() {
         return (
-            <div className="MonoAlphabetic">
+            <div className="Vigenere">
                 <div>
                     <PageHeader
-                        title='MonoAlphabetic Cipher'>
+                        title='Vigenere Cipher'>
                     </PageHeader>
                 </div>
                 <div>
@@ -87,11 +85,9 @@ class MonoAlphabetic extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Mono-Alphabetic Key"}>
-                                            <Input value={this.state.key}
-                                                   type={''}/>
-                                            <Button onClick={this.handleButtonClick.bind(this)}
-                                                    type="primary">Shuffle</Button>
+                                        <Form.Item label={"Vigenere Key"}>
+                                            <Input defaultValue={this.state.key}
+                                                   onChange={this.handleKeyChange.bind(this)}/>
                                         </Form.Item>
                                     </Form>
                                 </Card>
@@ -113,4 +109,4 @@ class MonoAlphabetic extends Component {
     }
 }
 
-export default MonoAlphabetic;
+export default Vigenere;
