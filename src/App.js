@@ -5,6 +5,7 @@ import {Layout} from "antd";
 import PageNotFound404 from "./components/PageNotFound404";
 import {MainMenu} from "./components/MainMenu";
 import Affine from "./components/pages/Affine";
+import MonoAlphabetic from "./components/pages/MonoAlphabetic";
 
 
 const {Content} = Layout;
@@ -30,6 +31,7 @@ class App extends Component {
                              <Layout>
                                <Content style={{margin: '0 16px'}}>
                                    <Route exact path="/Affine" component={Affine}/>
+                                   <Route exact path="/Mono-Alphabetic" component={MonoAlphabetic}/>
                                </Content>
                              </Layout>
                            </Layout>

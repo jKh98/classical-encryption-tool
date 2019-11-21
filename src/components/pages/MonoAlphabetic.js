@@ -1,30 +1,26 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, InputNumber, PageHeader, Row} from "antd";
+import {Button, Card, Col, Form, Input, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {affineDecrypt, affineEncrypt} from "../../utils/crypoFunctions";
+import {monoAlphabeticDecrypt, monoAlphabeticEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
-const a = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
-const InputGroup = Input.Group;
-
-class Affine extends Component {
+class MonoAlphabetic extends Component {
 
     state = {
         plainText: 'hello',
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
-        a: a[2],
-        b: 8,
+        key: 'abcdefghijklmnopqrstuvwxyz',
         data: [],
     };
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(affineEncrypt(this.state.a, this.state.b, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(monoAlphabeticEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
@@ -32,7 +28,7 @@ class Affine extends Component {
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(affineDecrypt(this.state.a, this.state.b, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(monoAlphabeticDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
@@ -59,20 +55,20 @@ class Affine extends Component {
         }, () => this.handleCipherTextChange(ct));
     }
 
-    handleValuesOfA(value) {
-        this.setState({a: a[Number(value)]}, () => this.handlePlainTextChange(this.state.plainText));
-    }
-
-    handleValuesOfB(value) {
-        this.setState({b: Number(value)}, () => this.handlePlainTextChange(this.state.plainText));
+    handleButtonClick() {
+        this.setState({
+            key: this.state.key.split('').sort(function () {
+                return 0.5 - Math.random()
+            }).join(''),
+        }, () => this.handlePlainTextChange(this.state.plainText))
     }
 
     render() {
         return (
-            <div className="Affine">
+            <div className="MonoAlphabetic">
                 <div>
                     <PageHeader
-                        title='Affine Cipher'>
+                        title='MonoAlphabetic Cipher'>
                     </PageHeader>
                 </div>
                 <div>
@@ -91,16 +87,11 @@ class Affine extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"SLOPE / A"}>
-                                            <InputNumber size="medium" min={0} max={11}
-                                                         formatter={value => (a[value])}
-                                                         defaultValue={2}
-                                                         onChange={this.handleValuesOfA.bind(this)}/>
-                                        </Form.Item>
-                                        <Form.Item label={"INTERCEPT / B"}>
-                                            <InputNumber size="medium" min={1} max={100000}
-                                                         defaultValue={this.state.b}
-                                                         onChange={this.handleValuesOfB.bind(this)}/>
+                                        <Form.Item label={"Mono-Alphabetic Key"}>
+                                            <Input value={this.state.key}
+                                                   type={''}/>
+                                            <Button onClick={this.handleButtonClick.bind(this)}
+                                                    type="primary">Shuffle</Button>
                                         </Form.Item>
                                     </Form>
                                 </Card>
@@ -122,4 +113,4 @@ class Affine extends Component {
     }
 }
 
-export default Affine;
+export default MonoAlphabetic;
