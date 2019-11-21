@@ -27,13 +27,13 @@ export const affineDecrypt = (a, b, text) => {
         let newIndex = (invert * (alphaIndex - b)) % alpha.length;
         if (newIndex < 0)
             newIndex += alpha.length;
-        let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? alpha[newIndex].toUpperCase(): alpha[newIndex]) : text[i];
+        let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? alpha[newIndex].toUpperCase() : alpha[newIndex]) : text[i];
         text = text.toString().substring(0, i) + s + text.toString().substring(i + 1);
     }
     return text;
 };
 
-export const monoAlphabeticEncrypt = (key,text) => {
+export const monoAlphabeticEncrypt = (key, text) => {
     for (let i = 0; i < text.length; i++) {
         let alphaIndex = (text[i] === text[i].toUpperCase()) ? alpha.indexOf(text[i].toLowerCase()) : alpha.indexOf(text[i]);
         let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? (key[alphaIndex]).toUpperCase() : key[alphaIndex]) : text[i];
@@ -42,7 +42,7 @@ export const monoAlphabeticEncrypt = (key,text) => {
     return text;
 };
 
-export const monoAlphabeticDecrypt = (key,text) => {
+export const monoAlphabeticDecrypt = (key, text) => {
     for (let i = 0; i < text.length; i++) {
         let alphaIndex = (text[i] === text[i].toUpperCase()) ? key.indexOf(text[i].toLowerCase()) : key.indexOf(text[i]);
         let s = text[i].match(/[a-z]/i) ? ((text[i] === text[i].toUpperCase()) ? (alpha[alphaIndex]).toUpperCase() : alpha[alphaIndex]) : text[i];
@@ -50,3 +50,17 @@ export const monoAlphabeticDecrypt = (key,text) => {
     }
     return text;
 };
+
+export const getVigenereKey = (str) => {
+    let key = '';
+    for (let i = 0; ; i++) {
+        if (i === str.length)
+            i = 0;
+        if (key.length === 26)
+            break;
+        key += (str.charAt(i));
+    }
+    return key;
+};
+
+

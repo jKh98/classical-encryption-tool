@@ -4,7 +4,7 @@ import {Button, Card, Col, Form, Input, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {monoAlphabeticDecrypt, monoAlphabeticEncrypt} from "../../utils/crypoFunctions";
+import {getVigenereKey, monoAlphabeticDecrypt, monoAlphabeticEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
@@ -60,7 +60,8 @@ class MonoAlphabetic extends Component {
             key: this.state.key.split('').sort(function () {
                 return 0.5 - Math.random()
             }).join(''),
-        }, () => this.handlePlainTextChange(this.state.plainText))
+        }, () => this.handlePlainTextChange(this.state.plainText));
+        console.log(getVigenereKey("deceptive"));
     }
 
     render() {
