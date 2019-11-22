@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import '../utils/conversions'
-import {Card, Input, Layout, Select} from "antd";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {Alert, Button, Card, Icon, Input, Layout, notification, Select} from "antd";
+import {checkIfBinary, checkIfHex} from "../utils/generalFunctions";
 
 const {Option} = Select;
-
 const InputGroup = Input.Group;
 const {TextArea} = Input;
 
@@ -19,6 +20,7 @@ class TextContainer extends Component {
         ],
         mode: this.props.mode,
         text: this.props.text,
+        error: false,
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -39,10 +41,24 @@ class TextContainer extends Component {
         this.props.handleTextChange(event.target.value);
     }
 
+    openNotificationWithIcon(type, title) {
+        notification[type]({
+            message: title,
+            placement: 'topLeft'
+        });
+    }
+    ;
+
     render() {
         return (
             <Layout>
                 <Card title={this.state.title} bordered={false} extra={<InputGroup compact>
+                    <CopyToClipboard text={this.state.text}>
+                        <Button
+                            onClick={this.openNotificationWithIcon.bind(this, "success", "Text was successfully copied.")}>
+                            <Icon type="copy"/>
+                        </Button>
+                    </CopyToClipboard>
                     <Select style={{width: 150}}
                             defaultValue={this.state.modes[0].value}
                             onChange={this.handleModeChange.bind(this)}>
@@ -51,10 +67,20 @@ class TextContainer extends Component {
                         })}
                     </Select>
                 </InputGroup>}>
-                    <TextArea rows={8}
+                    <TextArea rows={7}
                               onChange={this.handleTextChange.bind(this)}
-                              on
                               value={this.state.text}/>
+                    <div style={{height: 50}}>
+                        <br/>
+                        {
+                            (this.state.mode === "Binary" && !checkIfBinary(this.state.text.toString())) ||
+                            (this.state.mode === "Hexadecimal" && !checkIfHex(this.state.text.toString())) ?
+                                <Alert message="Binary and Hexadecimal content cannot be interpreted as text."
+                                       type="error" showIcon/>
+                                : <Alert message={(this.state.text).length + " characters "}
+                                         type="info" showIcon/>
+                        }
+                    </div>
                 </Card>
             </Layout>
         );

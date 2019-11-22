@@ -21,3 +21,22 @@ export const getFrequency = (string) => {
     console.log(freq);
     return freq;
 };
+
+export const checkIfBinary = (string) => {
+    let bin = ['0', '1', ' '];
+    for (let i = 0; i < string.length; i++) {
+        if (!bin.includes(string[i])) {
+            return false;
+        }
+    }
+    return true;
+};
+export const checkIfHex = (string) => {
+    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'a', 'b', 'c', 'd', 'e', 'f', ' '];
+    for (let i = 0; i < string.length; i++) {
+        if (!hex.includes(string[i])) {
+            return false;
+        }
+    }
+    return true;
+};
