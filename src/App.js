@@ -15,7 +15,16 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: "Affine",
+            selected: "",
+        }
+    }
+
+    setSelected(selected) {
+        console.log(selected);
+        if (this.state.selected !== selected) {
+            this.setState({
+                selected: selected,
+            })
         }
     }
 
@@ -31,9 +40,24 @@ class App extends Component {
                                            <MainMenu selected={this.state.selected}/>
                                            <Layout>
                                                <Content style={{margin: '0 16px'}}>
-                                                   <Route exact path="/Affine" component={Affine}/>
-                                                   <Route exact path="/Mono-Alphabetic" component={MonoAlphabetic}/>
-                                                   <Route exact path="/Vigenere" component={Vigenere}/>
+                                                   <Route exact
+                                                          path="/Affine"
+                                                          render={() => {
+                                                              this.setSelected('Affine');
+                                                              return <Affine/>;
+                                                          }}/>
+                                                   <Route exact
+                                                          path="/Mono-Alphabetic"
+                                                          render={() => {
+                                                              this.setSelected('Mono-Alphabetic');
+                                                              return <MonoAlphabetic/>;
+                                                          }}/>
+                                                   <Route exact
+                                                          path="/Vigenere"
+                                                          render={() => {
+                                                              this.setSelected('Vigenere');
+                                                              return <Vigenere/>;
+                                                          }}/>
                                                </Content>
                                            </Layout>
                                        </Layout>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, InputNumber, PageHeader, Row} from "antd";
+import {Card, Col, Form, InputNumber, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
@@ -9,12 +9,11 @@ import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
 const a = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
-const InputGroup = Input.Group;
 
 class Affine extends Component {
 
     state = {
-        plainText: 'hello',
+        plainText: 'The quick brown fox jumps over the lazy dog.',
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
@@ -22,6 +21,10 @@ class Affine extends Component {
         b: 8,
         data: [],
     };
+
+    componentDidMount() {
+        this.handlePlainTextChange(this.state.plainText);
+    }
 
     handlePlainTextChange(value) {
         let ct = convertFromText(affineEncrypt(this.state.a, this.state.b, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);

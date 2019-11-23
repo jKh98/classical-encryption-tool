@@ -4,20 +4,24 @@ import {Card, Col, Form, Input, PageHeader, Row} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {getVigenereKey, vigenereDecrypt, vigenereEncrypt} from "../../utils/crypoFunctions";
+import {vigenereDecrypt, vigenereEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
 class Vigenere extends Component {
 
     state = {
-        plainText: 'hello',
+        plainText: 'The quick brown fox jumps over the lazy dog.',
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
         key: 'vigenere',
         data: [],
     };
+
+    componentDidMount() {
+        this.handlePlainTextChange(this.state.plainText);
+    }
 
     handlePlainTextChange(value) {
         let ct = convertFromText(vigenereEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
@@ -67,7 +71,7 @@ class Vigenere extends Component {
             <div className="Vigenere">
                 <div>
                     <PageHeader
-                        title='Vigenere Cipher'>
+                        title='Vigenère Cipher'>
                     </PageHeader>
                 </div>
                 <div>
@@ -86,7 +90,7 @@ class Vigenere extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Vigenere Key"}>
+                                        <Form.Item label={"Vigenère  Key"}>
                                             <Input defaultValue={this.state.key}
                                                    onChange={this.handleKeyChange.bind(this)}/>
                                         </Form.Item>

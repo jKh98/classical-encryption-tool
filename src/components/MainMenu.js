@@ -7,11 +7,14 @@ const {Sider} = Layout;
 export class MainMenu extends PureComponent {
     state = {
         theme: 'dark',
-        current: this.props.selected,
+        selected: this.props.selected,
     };
 
-    constructor(props) {
-        super(props);
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.selected !== prevState.selected) {
+            this.setState({selected: this.props.selected});
+        }
     }
 
     changeTheme = value => {
@@ -22,7 +25,7 @@ export class MainMenu extends PureComponent {
 
     handleClick = e => {
         this.setState({
-            current: e.key
+            selected: e.key
         });
     };
 
@@ -44,7 +47,7 @@ export class MainMenu extends PureComponent {
                     onClick={this.handleClick}
                     theme={this.state.theme}
                     defaultSelectedKeys={['Affine']}
-                    selectedKeys={[this.state.current]}
+                    selectedKeys={[this.state.selected]}
                     mode='inline'>
                     <Menu.Item key="Affine">
                         <Link to={"/Affine"}>

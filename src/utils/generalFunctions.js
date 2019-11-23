@@ -18,7 +18,6 @@ export const getFrequency = (string) => {
         freq[i] = Math.round(Number(value * 100 / stringLength) * 100) / 100;
         i++;
     }
-    console.log(freq);
     return freq;
 };
 

@@ -11,13 +11,17 @@ import {getFrequency} from "../../utils/generalFunctions";
 class MonoAlphabetic extends Component {
 
     state = {
-        plainText: 'hello',
+        plainText: 'The quick brown fox jumps over the lazy dog.',
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
         key: 'abcdefghijklmnopqrstuvwxyz',
         data: [],
     };
+
+    componentDidMount() {
+        this.handlePlainTextChange(this.state.plainText);
+    }
 
     handlePlainTextChange(value) {
         let ct = convertFromText(monoAlphabeticEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
