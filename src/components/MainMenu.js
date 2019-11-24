@@ -32,8 +32,15 @@ export class MainMenu extends PureComponent {
     render() {
         return (
             <Sider
-                breakpoint="lg"
                 theme={this.state.theme}
+                breakpoint="lg"
+                collapsedWidth="0"
+                onBreakpoint={broken => {
+                    console.log(broken);
+                }}
+                onCollapse={(collapsed, type) => {
+                    console.log(collapsed, type);
+                }}
                 width='280px'>
                 <div className="logo" style={{
                     height: '32px',

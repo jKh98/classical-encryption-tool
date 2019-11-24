@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, InputNumber, PageHeader, Row} from "antd";
+import {Card, Col, Form, InputNumber, PageHeader, Popover, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
@@ -8,6 +8,7 @@ import {affineDecrypt, affineEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
+const {Paragraph, Text} = Typography;
 const a = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
 
 class Affine extends Component {
@@ -94,12 +95,15 @@ class Affine extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"SLOPE / A"}>
-                                            <InputNumber size="medium" min={0} max={11}
-                                                         formatter={value => (a[value])}
-                                                         defaultValue={2}
-                                                         onChange={this.handleValuesOfA.bind(this)}/>
-                                        </Form.Item>
+                                        <Popover content={""}>
+                                            <Form.Item label={"SLOPE / A"}>
+                                                <InputNumber size="medium" min={0} max={11}
+                                                             formatter={value => (a[value])}
+                                                             defaultValue={2}
+                                                             onChange={this.handleValuesOfA.bind(this)}/>
+                                            </Form.Item>
+                                        </Popover>
+
                                         <Form.Item label={"INTERCEPT / B"}>
                                             <InputNumber size="medium" min={1} max={100000}
                                                          defaultValue={this.state.b}
@@ -117,6 +121,35 @@ class Affine extends Component {
                                     </Delayed>
                                 </Card>
                             </Row>
+                            <br/>
+                            <Row>
+                                <Card title="Affine Cipher Encoding and Decoding" bordered={false}>
+                                    <Paragraph>
+                                        In affine cipher each letter in an alphabet is mapped to its numeric index.
+                                        The
+                                        letter is then encrypted using a modular arithmetic, and converted back to a
+                                        letter
+                                        based on the new index. In the English alphabet consisting of <Text
+                                        code>26</Text> characters, the function <Text code>(ax + b) mod
+                                        26</Text> is used to encipher each letter. The multiplicative inverse
+                                        of <Text code>a</Text> exists if <Text
+                                        code>a</Text> and <Text code>26</Text> are coprime. Hence values
+                                        that <Text code>a</Text> could have are <Text code>1, 3, 5, 7, 9,
+                                        11, 15, 17, 19, 21, 23, and 25</Text>. The value <Text
+                                        code>b</Text> is the shift of the cipher and could be any arbitrary value
+                                        greater than 1. The function used to decode the cipher text is <Text
+                                        code>a<sup>-1</sup>(x - b) mod 26</Text>, where <Text
+                                        code>a<sup>-1</sup></Text> is the multiplicative inverse of with respect
+                                        to <Text code>26</Text>.
+                                    </Paragraph>
+                                </Card>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <br/>
+                    <Row type="flex" justify="space-around" align="top">
+                        <Col lg={23} md={23} sm={23} xs={23}>
+
                         </Col>
                     </Row>
                 </div>

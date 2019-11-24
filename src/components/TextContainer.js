@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import '../utils/conversions'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {Alert, Button, Card, Icon, Input, Layout, notification, Select} from "antd";
+import {Alert, Button, Card, Icon, Input, Layout, message , Select} from "antd";
 import {checkIfBinary, checkIfHex} from "../utils/generalFunctions";
 
 const {Option} = Select;
@@ -42,10 +42,11 @@ class TextContainer extends Component {
     }
 
     openNotificationWithIcon(type, title) {
-        notification[type]({
-            message: title,
-            placement: 'topLeft'
-        });
+        message.success(title)
+        // notification[type]({
+        //     message: title,
+        //     placement: 'topLeft'
+        // });
     }
     ;
 
