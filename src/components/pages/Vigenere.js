@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, PageHeader, Row} from "antd";
+import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
 import {vigenereDecrypt, vigenereEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
+
+const {Paragraph, Text} = Typography;
 
 class Vigenere extends Component {
 
@@ -104,6 +106,24 @@ class Vigenere extends Component {
                                         <CustomGraph type='line'
                                                      data={this.state.data}/>
                                     </Delayed>
+                                </Card>
+                            </Row>
+                            <br/>
+                            <br/>
+                            <Row>
+                                <Card ref={'test'} title="Vigenère Cipher Encoding and Decoding" bordered={false}>
+                                    <Paragraph>
+                                        Vigenère cipher is a method that encrypts alphabetic text by using a series of
+                                        successive Caesar
+                                        ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
+                                        based on the letters
+                                        of a provided keyword. The cipher
+                                        is easy to understand and implement, but it resisted breaking for three
+                                        centuries. The complexity of breaking increases with as the keyword length
+                                        increases, because the key of the cipher will be reused until it covers all
+                                        message characters. Having a keyword of length greater than or equal to the
+                                        message length maximizes the usage of different Caesar ciphers.
+                                    </Paragraph>
                                 </Card>
                             </Row>
                         </Col>

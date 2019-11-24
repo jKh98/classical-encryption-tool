@@ -76,7 +76,14 @@ class Affine extends Component {
             <div className="Affine">
                 <div>
                     <PageHeader
-                        title='Affine Cipher'>
+                        title='Affine Cipher'
+                        // tags={<Button
+                        //     size={'small'}
+                        //     type="primary" ghost
+                        //     shape="circle" icon="info" block
+                        //     style={{backgroundColor: "transparent"}}/>
+                        // }
+                    >
                     </PageHeader>
                 </div>
                 <div>
@@ -123,7 +130,7 @@ class Affine extends Component {
                             </Row>
                             <br/>
                             <Row>
-                                <Card title="Affine Cipher Encoding and Decoding" bordered={false}>
+                                <Card ref={'test'} title="Affine Cipher Encoding and Decoding" bordered={false}>
                                     <Paragraph>
                                         In affine cipher each letter in an alphabet is mapped to its numeric index.
                                         The
@@ -144,12 +151,6 @@ class Affine extends Component {
                                     </Paragraph>
                                 </Card>
                             </Row>
-                        </Col>
-                    </Row>
-                    <br/>
-                    <Row type="flex" justify="space-around" align="top">
-                        <Col lg={23} md={23} sm={23} xs={23}>
-
                         </Col>
                     </Row>
                 </div>

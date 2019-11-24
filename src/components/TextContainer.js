@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import '../utils/conversions'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {Alert, Button, Card, Icon, Input, Layout, message , Select} from "antd";
+import {Alert, Button, Card, Icon, Input, Layout, message, Select} from "antd";
 import {checkIfBinary, checkIfHex} from "../utils/generalFunctions";
 
 const {Option} = Select;
@@ -48,7 +48,6 @@ class TextContainer extends Component {
         //     placement: 'topLeft'
         // });
     }
-    ;
 
     render() {
         return (
@@ -60,7 +59,7 @@ class TextContainer extends Component {
                             <Icon type="copy"/>
                         </Button>
                     </CopyToClipboard>
-                    <Select style={{width: 150}}
+                    <Select style={{width: 120}}
                             defaultValue={this.state.modes[0].value}
                             onChange={this.handleModeChange.bind(this)}>
                         {this.state.modes.map((e, key) => {
@@ -70,7 +69,8 @@ class TextContainer extends Component {
                 </InputGroup>}>
                     <TextArea rows={7}
                               onChange={this.handleTextChange.bind(this)}
-                              value={this.state.text}/>
+                              value={this.state.text}
+                    />
                     <div style={{height: 50}}>
                         <br/>
                         {
@@ -78,7 +78,7 @@ class TextContainer extends Component {
                             (this.state.mode === "Hexadecimal" && !checkIfHex(this.state.text.toString())) ?
                                 <Alert message="Binary and Hexadecimal content cannot be interpreted as text."
                                        type="error" showIcon/>
-                                : <Alert message={(this.state.text).length + " characters "}
+                                : <Alert message={(this.state.text).replace(/\s/g, '').length + " characters "}
                                          type="info" showIcon/>
                         }
                     </div>

@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Button, Card, Col, Form, Input, PageHeader, Row} from "antd";
+import {Button, Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
 import {monoAlphabeticDecrypt, monoAlphabeticEncrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
+
+const {Paragraph} = Typography;
 
 class MonoAlphabetic extends Component {
 
@@ -109,8 +111,24 @@ class MonoAlphabetic extends Component {
                                     </Delayed>
                                 </Card>
                             </Row>
+                            <br/>
+                            <Row>
+                                <Card ref={'test'} title="Mono-Alphabetic Cipher Encoding and Decoding"
+                                      bordered={false}>
+                                    <Paragraph>
+                                        A monoalphabetical cipher fixes an alphabetical substitution to be used for the
+                                        entire message. The substitution randomly shuffles the original alphabetical
+                                        order and maps the original index of each letter to a new index based on the new
+                                        jumbled sequence . The new alphabetical sequence may be a shifted, reversed,
+                                        mixed or deranged version of the original alphabet alphabet. Knowing the new and
+                                        the
+                                        original sequences allows for easy encryption and decryption.
+                                    </Paragraph>
+                                </Card>
+                            </Row>
                         </Col>
                     </Row>
+
                 </div>
             </div>
         );
