@@ -51,17 +51,7 @@ export const monoAlphabeticDecrypt = (key, text) => {
     return text;
 };
 
-export const getVigenereKey = (str) => {
-    let key = '';
-    for (let i = 0; ; i++) {
-        if (i === str.length)
-            i = 0;
-        if (key.length === 26)
-            break;
-        key += (str[i]);
-    }
-    return key;
-};
+
 
 export const vigenereEncrypt = (keyword, text) => {
     let temp = "";

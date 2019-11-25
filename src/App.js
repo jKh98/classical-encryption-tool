@@ -7,7 +7,9 @@ import {MainMenu} from "./components/MainMenu";
 import Affine from "./components/pages/Affine";
 import MonoAlphabetic from "./components/pages/MonoAlphabetic";
 import Vigenere from "./components/pages/Vigenere";
-
+import Playfair from "./components/pages/Playfair";
+import Hill from "./components/pages/Hill";
+import Euclid from "./components/pages/Euclid";
 
 const {Content} = Layout;
 
@@ -57,6 +59,12 @@ class App extends Component {
                                                           render={() => {
                                                               this.setSelected('Vigenere');
                                                               return <Vigenere/>;
+                                                          }}/>
+                                                   <Route exact
+                                                          path="/Playfair"
+                                                          render={() => {
+                                                              this.setSelected('Playfair');
+                                                              return <Playfair/>;
                                                           }}/>
                                                </Content>
                                            </Layout>
