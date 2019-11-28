@@ -11,6 +11,11 @@ const {TextArea} = Input;
 
 class TextContainer extends Component {
 
+    constructor(props) {
+        super(props);
+        this.textInput = React.createRef();
+    }
+
     state = {
         title: this.props.title,
         modes: [
@@ -21,7 +26,9 @@ class TextContainer extends Component {
         mode: this.props.mode,
         text: this.props.text,
         error: false,
+        cursor: 0
     };
+
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.text !== prevState.text) {
@@ -30,23 +37,24 @@ class TextContainer extends Component {
         if (this.props.mode !== prevState.mode) {
             this.setState({mode: this.props.mode});
         }
+        this.textInput.current.setSelectionRange(this.state.cursor, this.state.cursor);
     }
 
     handleModeChange(value) {
-        console.log(value);
         this.props.handleModeChange(value);
     }
 
     handleTextChange(event) {
         this.props.handleTextChange(event.target.value);
+        if (event.target.selectionStart !== this.state.cursor) {
+            this.setState({
+                cursor: event.target.selectionStart,
+            })
+        }
     }
 
     openNotificationWithIcon(type, title) {
         message.success(title)
-        // notification[type]({
-        //     message: title,
-        //     placement: 'topLeft'
-        // });
     }
 
     render() {
@@ -67,7 +75,9 @@ class TextContainer extends Component {
                         })}
                     </Select>
                 </InputGroup>}>
-                    <TextArea rows={7}
+                    <textarea rows={7}
+                              className={'ant-input'}
+                              ref={this.textInput}
                               onChange={this.handleTextChange.bind(this)}
                               value={this.state.text}
                     />
