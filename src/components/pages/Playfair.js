@@ -4,7 +4,8 @@ import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {vigenereDecrypt, vigenereEncrypt} from "../../utils/crypoFunctions";
+//import {playfairEncrypt, playfairDecrypt} from "../../utils/crypoFunctions";
+import {vigenereEncrypt, vigenereDecrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
@@ -17,7 +18,7 @@ class Playfair extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
-        key: 'vigenere',
+        key: 'playfair',
         data: [],
     };
 
@@ -92,7 +93,7 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Vigenère  Key"}>
+                                        <Form.Item label={"Key to seed table: "}>
                                             <Input defaultValue={this.state.key}
                                                    onChange={this.handleKeyChange.bind(this)}/>
                                         </Form.Item>
@@ -111,9 +112,9 @@ class Playfair extends Component {
                             <br/>
                             <br/>
                             <Row>
-                                <Card ref={'test'} title="Vigenère Cipher Encoding and Decoding" bordered={false}>
+                                <Card ref={'test'} title="Playfair Cipher Encoding and Decoding" bordered={false}>
                                     <Paragraph>
-                                        Vigenère cipher is a method that encrypts alphabetic text by using a series of
+                                        Playfair cipher is a method that encrypts alphabetic text by using a series of
                                         successive Caesar
                                         ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
                                         based on the letters

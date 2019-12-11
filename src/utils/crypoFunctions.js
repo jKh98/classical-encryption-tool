@@ -51,8 +51,6 @@ export const monoAlphabeticDecrypt = (key, text) => {
     return text;
 };
 
-
-
 export const vigenereEncrypt = (keyword, text) => {
     let temp = "";
     let word = text.replace(/\W/g, '')
@@ -95,3 +93,6 @@ export const vigenereDecrypt = (keyword, text) => {
     return decrypt;
 };
 
+//export const playfairEncrypt = (keyword, text) => {};
+
+//export const playfairDecrypt = (keyword, text) => {};

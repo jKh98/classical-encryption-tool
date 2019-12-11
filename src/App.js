@@ -66,6 +66,18 @@ class App extends Component {
                                                               this.setSelected('Playfair');
                                                               return <Playfair/>;
                                                           }}/>
+                                                   <Route exact
+                                                          path="/Hill"
+                                                          render={() => {
+                                                              this.setSelected('Hill');
+                                                              return <Hill/>;
+                                                          }}/>
+                                                   <Route exact
+                                                          path="/Extended-Euclid"
+                                                          render={() => {
+                                                              this.setSelected('Extended-Euclid');
+                                                              return <Euclid/>;
+                                                          }}/>
                                                </Content>
                                            </Layout>
                                        </Layout>
