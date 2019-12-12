@@ -5,17 +5,21 @@ import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
 //import {playfairEncrypt, playfairDecrypt} from "../../utils/crypoFunctions";
-import {vigenereEncrypt, vigenereDecrypt} from "../../utils/crypoFunctions";
+import {vigenereEncrypt, vigenereDecrypt, euclid} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
 const {Paragraph, Text} = Typography;
+
 
 class Playfair extends Component {
 
     state = {
         a: 2,
         b: 1,
+        d: 3,
+        x: 4,
+        y: 5
     };
 
     handleValuesOfA(value) {
@@ -26,8 +30,25 @@ class Playfair extends Component {
         this.setState({b: Number(value)}, () => this.calculateEuclid());
     }
 
-    calculateEuclid() {
+    handleValuesOfX(value) {
+        this.setState({x: Number(value)}, () => this.calculateEuclid());
+    }
 
+    handleValuesOfY(value) {
+        this.setState({y: Number(value)}, () => this.calculateEuclid());
+    }
+
+    handleValuesOfD(value) {
+        this.setState({d: Number(value)}, () => this.calculateEuclid());
+    }
+
+    calculateEuclid() {
+        let [x, y, d] = euclid(this.state.a, this.state.b);
+        this.setState({
+            x: x,
+            y: y,
+            d: d
+        })
     }
 
     render() {
@@ -69,21 +90,23 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Outputs" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Mono-Alphabetic Key"}>
-                                        <Popover content={""}>
-                                            <Form.Item label={"A"}>
+                                        <Form.Item label={"Mono-Alphabetic Key"}/>
+                                    <br/>
+                                            <Form.Item label={"D"}>
                                                 <InputNumber size="medium" min={1} max={1000000}
-                                                             defaultValue={1}/>
-                                                {/*onChange={this.handleValuesOfA.bind(this)}*/}
+                                                             Value={this.state.d}
+                                                onChange={this.handleValuesOfD.bind(this)}/>
                                             </Form.Item>
-                                        </Popover>
-
-                                        <Form.Item label={"B"}>
-                                            <InputNumber size="medium" min={1} max={100000}
-                                                         defaultValue={this.state.b}/>
-                                            {/*onChange={this.handleValuesOfB.bind(this)}/>*/}
-                                        </Form.Item>
-                                        </Form.Item>
+                                            <Form.Item label={"X"}>
+                                                <InputNumber size="medium" min={1} max={100000}
+                                                             defaultValue={this.state.x}
+                                                onChange={this.handleValuesOfX.bind(this)}/>
+                                            </Form.Item>
+                                            <Form.Item label={"Y"}>
+                                                <InputNumber size="medium" min={1} max={100000}
+                                                             defaultValue={this.state.y}
+                                                onChange={this.handleValuesOfY.bind(this)}/>
+                                            </Form.Item>
                                     </Form>
                                 </Card>
                             </Row>

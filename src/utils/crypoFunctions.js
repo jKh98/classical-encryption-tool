@@ -96,3 +96,15 @@ export const vigenereDecrypt = (keyword, text) => {
 //export const playfairEncrypt = (keyword, text) => {};
 
 //export const playfairDecrypt = (keyword, text) => {};
+
+export const euclid = (a, b) => {
+    // if (q == 0)
+    //     return new int[] { p, 1, 0 };
+    //
+    // int[] vals = gcd(q, p % q);
+    // int d = vals[0];
+    // int a = vals[2];
+    // int b = vals[1] - (p / q) * vals[2];
+    // return new int[] { d, a, b };
+}
+
