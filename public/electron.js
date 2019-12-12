@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { app, BrowserWindow } = electron;
+const {app, BrowserWindow, Menu} = electron;
 const path = require('path');
 const isDev = require('electron-is-dev');
 
@@ -15,6 +15,7 @@ app.on('activate', function () {
         createWindow()
     }
 });
+
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1024,
@@ -28,4 +29,6 @@ function createWindow() {
     mainWindow.on('page-title-updated', function (e) {
         e.preventDefault()
     });
+    Menu.setApplicationMenu(null)
+    // mainWindow.setMenu(null);
 }

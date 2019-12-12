@@ -4,7 +4,7 @@ import {Button, Result} from 'antd';
 class NotFoundPage extends React.Component {
 
     backToHome = (e) => {
-        this.props.history.push("/admin/dashboard");
+        this.props.history.push("/Affine");
     };
 
     render() {
@@ -13,7 +13,7 @@ class NotFoundPage extends React.Component {
                 status="404"
                 title="404"
                 subTitle="Sorry, the page you requested was not found."
-                extra={<Button type="primary" onClick={this.backToHome}>Back Home</Button>}
+                // extra={<Button type="primary" onClick={this.backToHome}>Back Home</Button>}
             />
         </div>;
     }
