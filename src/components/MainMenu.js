@@ -46,9 +46,11 @@ export class MainMenu extends PureComponent {
                     height: '32px',
                     margin: '16px'
                 }}>
-                    <h2 style={{color: 'white'}}>
-                        Classical Encryption
-                    </h2>
+                    <Link to={"/"}>
+                        <h2 style={{color: 'white'}}>
+                            Classical Encryption
+                        </h2>
+                    </Link>
                 </div>
                 <Menu
                     onClick={this.handleClick}

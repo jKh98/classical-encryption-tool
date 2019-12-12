@@ -10,6 +10,7 @@ import Vigenere from "./components/pages/Vigenere";
 import Playfair from "./components/pages/Playfair";
 import Hill from "./components/pages/Hill";
 import Euclid from "./components/pages/Euclid";
+import Redirect from "react-router-dom/es/Redirect";
 
 const {Content} = Layout;
 
@@ -42,6 +43,12 @@ class App extends Component {
                                            <MainMenu selected={this.state.selected}/>
                                            <Layout>
                                                <Content style={{margin: '0 16px'}}>
+                                                   <Route exact
+                                                          path="/"
+                                                          render={() => {
+                                                              this.setSelected(null);
+                                                              return <PageNotFound404/>;
+                                                          }}/>
                                                    <Route exact
                                                           path="/Affine"
                                                           render={() => {
@@ -78,11 +85,12 @@ class App extends Component {
                                                               this.setSelected('Extended-Euclid');
                                                               return <Euclid/>;
                                                           }}/>
+                                                   <Route path="/404" component={PageNotFound404} />
+                                                   <Redirect to="/404" />
                                                </Content>
                                            </Layout>
                                        </Layout>
                                    </React.Fragment>)}/>
-                        <Route exact path="*" component={PageNotFound404}/>
                     </Switch>
                 </BrowserRouter>
             </div>
