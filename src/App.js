@@ -10,7 +10,6 @@ import Vigenere from "./components/pages/Vigenere";
 import Playfair from "./components/pages/Playfair";
 import Hill from "./components/pages/Hill";
 import Euclid from "./components/pages/Euclid";
-import HomeScreen from "./components/HomeScreen";
 
 const {Content} = Layout;
 
@@ -47,7 +46,7 @@ class App extends Component {
                                                           path="/"
                                                           render={() => {
                                                               this.setSelected(null);
-                                                              return <HomeScreen/>;
+                                                              return <PageNotFound404/>;
                                                           }}/>
                                                    <Route exact
                                                           path="/Affine"
@@ -86,7 +85,7 @@ class App extends Component {
                                                               return <Euclid/>;
                                                           }}/>
                                                    <Route path="/404" component={PageNotFound404}/>
-                                                   <Redirect to="/"/>
+                                                   <Redirect to="/404"/>
                                                </Content>
                                            </Layout>
                                        </Layout>
