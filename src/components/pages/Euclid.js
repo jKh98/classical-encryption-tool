@@ -43,11 +43,11 @@ class Playfair extends Component {
     }
 
     calculateEuclid() {
-        let [d, a, b] = gcd(this.state.p, this.state.q);
+        let output = gcd(this.state.p, this.state.q);
         this.setState({
-            d: d,
-            a: a,
-            b: b
+            d: output[0],
+            a: output[1],
+            b: output[2]
         })
     }
 
@@ -65,7 +65,7 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Inputs" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Enter your inputs such that A is greater than B"}>
+                                        <Form.Item label={"Enter your inputs p and q"}>
                                             <Popover content={"HI"}>
                                                 <Form.Item label={"p"}>
                                                     <InputNumber size="medium" /*min={Number(this.state.p + 1)}*/
@@ -90,7 +90,7 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Outputs" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Mono-Alphabetic Key"}/>
+                                        <Form.Item label={"Outputs"}/>
                                     <br/>
                                             <Form.Item label={"a"}>
                                                 <InputNumber size="medium" /*min={1} max={1000000}*/
