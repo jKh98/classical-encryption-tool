@@ -97,7 +97,10 @@ export const vigenereDecrypt = (keyword, text) => {
 
 //export const playfairDecrypt = (keyword, text) => {};
 
-export const euclid = (a, b) => {
+export const euclid = (p, q) => {
+    // general form: a(p) + b(q) = gcd(p, q)
+    //such that d = gcd(p, q), ap + bq = d
+
     // if (q == 0)
     //     return new int[] { p, 1, 0 };
     //

@@ -15,30 +15,30 @@ const {Paragraph, Text} = Typography;
 class Playfair extends Component {
 
     state = {
-        a: 2,
-        b: 1,
+        p: 2,
+        q: 1,
         d: 3,
         x: 4,
         y: 5
     };
 
-    handleValuesOfA(value) {
+    handleValuesOfp(value) {
         this.setState({a: Number(value)}, () => this.calculateEuclid());
     }
 
-    handleValuesOfB(value) {
+    handleValuesOfq(value) {
         this.setState({b: Number(value)}, () => this.calculateEuclid());
     }
 
-    handleValuesOfX(value) {
+    handleValuesOfa(value) {
         this.setState({x: Number(value)}, () => this.calculateEuclid());
     }
 
-    handleValuesOfY(value) {
+    handleValuesOfb(value) {
         this.setState({y: Number(value)}, () => this.calculateEuclid());
     }
 
-    handleValuesOfD(value) {
+    handleValuesOfd(value) {
         this.setState({d: Number(value)}, () => this.calculateEuclid());
     }
 
@@ -67,18 +67,18 @@ class Playfair extends Component {
                                     <Form layout={"inline"}>
                                         <Form.Item label={"Enter your inputs such that A is greater than B"}>
                                             <Popover content={"HI"}>
-                                                <Form.Item label={"A"}>
-                                                    <InputNumber size="medium" min={Number(this.state.b + 1)}
+                                                <Form.Item label={"p"}>
+                                                    <InputNumber size="medium" min={Number(this.state.p + 1)}
                                                                  max={1000000}
-                                                                 value={this.state.a}
-                                                                 onChange={this.handleValuesOfA.bind(this)}/>
+                                                                 value={this.state.p}
+                                                                 onChange={this.handleValuesOfp.bind(this)}/>
                                                 </Form.Item>
                                             </Popover>
 
-                                            <Form.Item label={"B"}>
-                                                <InputNumber size="medium" min={1} max={Number((this.state.a) - 1)}
-                                                             value={this.state.b}
-                                                             onChange={this.handleValuesOfB.bind(this)}/>
+                                            <Form.Item label={"q"}>
+                                                <InputNumber size="medium" min={1} max={Number((this.state.p) - 1)}
+                                                             value={this.state.q}
+                                                             onChange={this.handleValuesOfq.bind(this)}/>
                                             </Form.Item>
                                         </Form.Item>
                                     </Form>
@@ -92,20 +92,20 @@ class Playfair extends Component {
                                     <Form layout={"inline"}>
                                         <Form.Item label={"Mono-Alphabetic Key"}/>
                                     <br/>
-                                            <Form.Item label={"D"}>
+                                            <Form.Item label={"a"}>
                                                 <InputNumber size="medium" min={1} max={1000000}
-                                                             Value={this.state.d}
-                                                onChange={this.handleValuesOfD.bind(this)}/>
+                                                             Value={this.state.a}
+                                                onChange={this.handleValuesOfa.bind(this)}/>
                                             </Form.Item>
-                                            <Form.Item label={"X"}>
+                                            <Form.Item label={"b"}>
                                                 <InputNumber size="medium" min={1} max={100000}
-                                                             defaultValue={this.state.x}
-                                                onChange={this.handleValuesOfX.bind(this)}/>
+                                                             defaultValue={this.state.b}
+                                                onChange={this.handleValuesOfb.bind(this)}/>
                                             </Form.Item>
-                                            <Form.Item label={"Y"}>
+                                            <Form.Item label={"d"}>
                                                 <InputNumber size="medium" min={1} max={100000}
-                                                             defaultValue={this.state.y}
-                                                onChange={this.handleValuesOfY.bind(this)}/>
+                                                             defaultValue={this.state.d}
+                                                onChange={this.handleValuesOfd.bind(this)}/>
                                             </Form.Item>
                                     </Form>
                                 </Card>
