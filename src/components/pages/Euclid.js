@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, InputNumber, PageHeader, Popover, Row, Typography} from "antd";
-import CustomGraph from "../charts/CustomGraph";
-import Delayed from "../Delayed";
-import TextContainerCoupler from "../TextContainerCoupler";
-//import {playfairEncrypt, playfairDecrypt} from "../../utils/crypoFunctions";
-import {vigenereEncrypt, vigenereDecrypt, euclid, gcd} from "../../utils/crypoFunctions";
-import {convert, convert2Text, convertFromText} from "../../utils/conversions";
-import {getFrequency} from "../../utils/generalFunctions";
+import {Card, Col, Form, InputNumber, PageHeader, Popover, Row, Typography} from "antd";
+import {gcd} from "../../utils/crypoFunctions";
+
 
 const {Paragraph, Text} = Typography;
 
@@ -43,11 +38,12 @@ class Playfair extends Component {
     }
 
     calculateEuclid() {
-        let output = gcd(this.state.p, this.state.q);
+        let [d, a, b] = gcd(this.state.p, this.state.q);
+        console.log(d, a, b);
         this.setState({
-            d: output[0],
-            a: output[1],
-            b: output[2]
+            d: d,
+            a: a,
+            b: b
         })
     }
 
@@ -69,7 +65,7 @@ class Playfair extends Component {
                                             <Popover content={"HI"}>
                                                 <Form.Item label={"p"}>
                                                     <InputNumber size="medium" /*min={Number(this.state.p + 1)}*/
-                                                                 //max={1000000}
+                                                        //max={1000000}
                                                                  value={this.state.p}
                                                                  onChange={this.handleValuesOfp.bind(this)}/>
                                                 </Form.Item>
@@ -85,28 +81,27 @@ class Playfair extends Component {
                                 </Card>
                             </Row>
                         </Col>
-                        <br/>
                         <Col lg={11} md={23} sm={23} xs={23}>
                             <Row>
                                 <Card title="Outputs" bordered={false}>
                                     <Form layout={"inline"}>
                                         <Form.Item label={"Outputs"}/>
-                                    <br/>
-                                            <Form.Item label={"a"}>
-                                                <InputNumber size="medium" /*min={1} max={1000000}*/
-                                                             defaultValue={this.state.a}
-                                                onChange={this.handleValuesOfa.bind(this)}/>
-                                            </Form.Item>
-                                            <Form.Item label={"b"}>
-                                                <InputNumber size="medium" /*min={1} max={100000}*/
-                                                             defaultValue={this.state.b}
-                                                onChange={this.handleValuesOfb.bind(this)}/>
-                                            </Form.Item>
-                                            <Form.Item label={"d"}>
-                                                <InputNumber size="medium" /*min={1} max={100000}*/
-                                                             defaultValue={this.state.d}
-                                                onChange={this.handleValuesOfd.bind(this)}/>
-                                            </Form.Item>
+                                        <br/>
+                                        <Form.Item label={"a"}>
+                                            <InputNumber size="medium" /*min={1} max={1000000}*/
+                                                         value={this.state.a}
+                                                         onChange={this.handleValuesOfa.bind(this)}/>
+                                        </Form.Item>
+                                        <Form.Item label={"b"}>
+                                            <InputNumber size="medium" /*min={1} max={100000}*/
+                                                         value={this.state.b}
+                                                         onChange={this.handleValuesOfb.bind(this)}/>
+                                        </Form.Item>
+                                        <Form.Item label={"d"}>
+                                            <InputNumber size="medium" /*min={1} max={100000}*/
+                                                         value={this.state.d}
+                                                         onChange={this.handleValuesOfd.bind(this)}/>
+                                        </Form.Item>
                                     </Form>
                                 </Card>
                             </Row>
