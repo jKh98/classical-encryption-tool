@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
+import {Card, Col, Form, Input, InputNumber, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
@@ -17,6 +17,10 @@ class Playfair extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
+        a: "5",
+        b: "17",
+        c: "4",
+        d: "15",
         key: "5 17 4 15",
         data: [],
     };
@@ -61,9 +65,34 @@ class Playfair extends Component {
         }, () => this.handleCipherTextChange(ct));
     }
 
-    handleKeyChange(event) {
+    handleChangeA(value) {
         this.setState({
-            key: event.target.value,
+            a: value || 5,
+        }, () => this.handleKeyChange());
+    }
+
+    handleChangeB(value) {
+        this.setState({
+            b: value || 17,
+        }, () => this.handleKeyChange());
+    }
+
+    handleChangeC(value) {
+        this.setState({
+            c: value || 4,
+        }, () => this.handleKeyChange());
+    }
+
+    handleChangeD(value) {
+        this.setState({
+            d: value || 15,
+        }, () => this.handleKeyChange());
+    }
+
+    handleKeyChange() {
+        let key = this.state.a + " " + this.state.b + " " + this.state.c + " " + this.state.d;
+        this.setState({
+            key: key,
         }, () => this.handlePlainTextChange(this.state.plainText));
     }
 
@@ -91,9 +120,20 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Key to seed table: "}>
-                                            <Input defaultValue={this.state.key}
-                                                   onChange={this.handleKeyChange.bind(this)}/>
+                                        <Form.Item label={"Key Matrix"}>
+                                            <InputNumber value={this.state.a}
+                                                         onChange={this.handleChangeA.bind(this)}/>
+                                            <br/>
+                                            <InputNumber value={this.state.c}
+                                                         onChange={this.handleChangeC.bind(this)}/>
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <InputNumber value={this.state.b}
+                                                         onChange={this.handleChangeB.bind(this)}/>
+
+                                            <br/>
+                                            <InputNumber value={this.state.d}
+                                                         onChange={this.handleChangeD.bind(this)}/>
                                         </Form.Item>
                                     </Form>
                                 </Card>

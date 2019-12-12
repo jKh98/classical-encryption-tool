@@ -84,8 +84,8 @@ class App extends Component {
                                                               this.setSelected('Extended-Euclid');
                                                               return <Euclid/>;
                                                           }}/>
-                                                   <Route path="/404" component={PageNotFound404}/>
-                                                   <Redirect to="/404"/>
+                                                   <Route exact path="/404" component={PageNotFound404}/>
+                                                   {/*<Redirect to="/404"/>*/}
                                                </Content>
                                            </Layout>
                                        </Layout>
