@@ -1,3 +1,5 @@
+//import 'mathjs';
+
 const alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 // const alphaUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -102,8 +104,8 @@ export const gcd = (p, q) => {
     //such that d = gcd(p, q), ap + bq = d
 
     let arr = [];
-    if (q == 0){
-        arr=[p,1,0];
+    if (q == 0) {
+        arr = [p, 1, 0];
         return arr;
     }
 
@@ -111,8 +113,10 @@ export const gcd = (p, q) => {
     vals = gcd(q, p % q);
     let d = vals[0];
     let a = vals[2];
-    let b = vals[1] - (p / q) * vals[2];
-    arr=[d,a,b];
+    let b = (vals[1] - ((p / q) * vals[2]));
+    arr = [d, a, b];
     return arr;
+
+    //return math.xgcd(p,q);
 }
 
