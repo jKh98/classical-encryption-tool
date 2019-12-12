@@ -157,6 +157,3 @@ export const playfairDecrypt = (keysquare, ciphertext) => {
     return plaintext;
 };
 
-//export const playfairEncrypt = (keyword, text) => {};
-
-//export const playfairDecrypt = (keyword, text) => {};
