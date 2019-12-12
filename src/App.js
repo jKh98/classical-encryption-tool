@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import {Layout} from "antd";
 import PageNotFound404 from "./components/PageNotFound404";
+import HomeScreen from "./components/HomeScreen";
 import {MainMenu} from "./components/MainMenu";
 import Affine from "./components/pages/Affine";
 import MonoAlphabetic from "./components/pages/MonoAlphabetic";
@@ -46,7 +47,7 @@ class App extends Component {
                                                           path="/"
                                                           render={() => {
                                                               this.setSelected(null);
-                                                              return <PageNotFound404/>;
+                                                              return <HomeScreen/>;
                                                           }}/>
                                                    <Route exact
                                                           path="/Affine"
@@ -85,7 +86,7 @@ class App extends Component {
                                                               return <Euclid/>;
                                                           }}/>
                                                    <Route path="/404" component={PageNotFound404}/>
-                                                   <Redirect to="/404"/>
+                                                   <Redirect to="/"/>
                                                </Content>
                                            </Layout>
                                        </Layout>
