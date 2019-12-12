@@ -51,18 +51,6 @@ export const monoAlphabeticDecrypt = (key, text) => {
     return text;
 };
 
-export const getVigenereKey = (str) => {
-    let key = '';
-    for (let i = 0; ; i++) {
-        if (i === str.length)
-            i = 0;
-        if (key.length === 26)
-            break;
-        key += (str[i]);
-    }
-    return key;
-};
-
 export const vigenereEncrypt = (keyword, text) => {
     let temp = "";
     let word = text.replace(/\W/g, '')
@@ -104,4 +92,27 @@ export const vigenereDecrypt = (keyword, text) => {
     }
     return decrypt;
 };
+
+//export const playfairEncrypt = (keyword, text) => {};
+
+//export const playfairDecrypt = (keyword, text) => {};
+
+export const gcd = (p, q) => {
+    // general form: a(p) + b(q) = gcd(p, q)
+    //such that d = gcd(p, q), ap + bq = d
+
+    let arr = [];
+    if (q == 0){
+        arr=[p,1,0];
+        return arr;
+    }
+
+    let vals;
+    vals = gcd(q, p % q);
+    let d = vals[0];
+    let a = vals[2];
+    let b = vals[1] - (p / q) * vals[2];
+    arr=[d,a,b];
+    return arr;
+}
 
