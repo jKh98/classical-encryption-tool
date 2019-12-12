@@ -4,8 +4,7 @@ import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-//import {playfairEncrypt, playfairDecrypt} from "../../utils/crypoFunctions";
-import {vigenereEncrypt, vigenereDecrypt} from "../../utils/crypoFunctions";
+import {hillEncrypt, hillDecrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
@@ -18,7 +17,7 @@ class Playfair extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
-        key: 'playfair',
+        key: "5 17 4 15",
         data: [],
     };
 
@@ -27,7 +26,7 @@ class Playfair extends Component {
     }
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(vigenereEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(hillEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
@@ -35,7 +34,7 @@ class Playfair extends Component {
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(vigenereDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(hillDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
@@ -65,7 +64,6 @@ class Playfair extends Component {
     handleKeyChange(event) {
         this.setState({
             key: event.target.value,
-            // key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
         }, () => this.handlePlainTextChange(this.state.plainText));
     }
 
@@ -114,16 +112,17 @@ class Playfair extends Component {
                             <Row>
                                 <Card ref={'test'} title="Hill Cipher Encoding and Decoding" bordered={false}>
                                     <Paragraph>
-                                        Hill cipher is a method that encrypts alphabetic text by using a series of
-                                        successive Caesar
-                                        ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
-                                        based on the letters
-                                        of a provided keyword. The cipher
-                                        is easy to understand and implement, but it resisted breaking for three
-                                        centuries. The complexity of breaking increases with as the keyword length
-                                        increases, because the key of the cipher will be reused until it covers all
-                                        message characters. Having a keyword of length greater than or equal to the
-                                        message length maximizes the usage of different Caesar ciphers.
+                                        Hill cipher is a is a polygraphic substitution cipher based on linear algebra
+                                        that aims at encrypting multiple symbols at a time.
+                                        To encrypt a message, each block of <Text code>n</Text> letters is multiplied by
+                                        a key which is an
+                                        invertible <Text code>n × n</Text> matrix (in our case <Text code>2x2</Text>),
+                                        with <Text code>modulus 26</Text>.
+                                        To decrypt the message, each block is multiplied by the inverse of the matrix
+                                        (or key) used for encryption.
+                                        The key should be chosen randomly from the set of invertible <Text code>n ×
+                                        n</Text> matrices
+                                        <Text code>(modulo 26)</Text>.
                                     </Paragraph>
                                 </Card>
                             </Row>
