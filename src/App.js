@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import {Layout} from "antd";
 import PageNotFound404 from "./components/PageNotFound404";
@@ -10,7 +10,6 @@ import Vigenere from "./components/pages/Vigenere";
 import Playfair from "./components/pages/Playfair";
 import Hill from "./components/pages/Hill";
 import Euclid from "./components/pages/Euclid";
-import Redirect from "react-router-dom/es/Redirect";
 
 const {Content} = Layout;
 
@@ -85,8 +84,8 @@ class App extends Component {
                                                               this.setSelected('Extended-Euclid');
                                                               return <Euclid/>;
                                                           }}/>
-                                                   <Route path="/404" component={PageNotFound404} />
-                                                   <Redirect to="/404" />
+                                                   <Route path="/404" component={PageNotFound404}/>
+                                                   <Redirect to="/404"/>
                                                </Content>
                                            </Layout>
                                        </Layout>

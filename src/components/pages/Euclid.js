@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import {Card, Col, Form, InputNumber, PageHeader, Popover, Row, Typography} from "antd";
-import {gcd} from "../../utils/crypoFunctions";
-
+import {xgcd} from "mathjs"
 
 const {Paragraph, Text} = Typography;
 
@@ -26,24 +25,24 @@ class Playfair extends Component {
     }
 
     handleValuesOfa(value) {
-        this.setState({a: Number(value)}, () => this.calculateEuclid());
+        // this.setState({a: Number(value)}, () => this.calculateEuclid());
     }
 
     handleValuesOfb(value) {
-        this.setState({b: Number(value)}, () => this.calculateEuclid());
+        // this.setState({b: Number(value)}, () => this.calculateEuclid());
     }
 
     handleValuesOfd(value) {
-        this.setState({d: Number(value)}, () => this.calculateEuclid());
+        // this.setState({d: Number(value)}, () => this.calculateEuclid());
     }
 
     calculateEuclid() {
-        let [d, a, b] = gcd(this.state.p, this.state.q);
-        console.log(d, a, b);
+        let output = xgcd(this.state.p, this.state.q);
+        console.log(output);
         this.setState({
-            d: d,
-            a: a,
-            b: b
+            d: output._data[0],
+            a: output._data[1],
+            b: output._data[2]
         })
     }
 

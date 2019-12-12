@@ -97,22 +97,16 @@ export const vigenereDecrypt = (keyword, text) => {
 
 //export const playfairDecrypt = (keyword, text) => {};
 
-export const gcd = (p, q) => {
-    // general form: a(p) + b(q) = gcd(p, q)
-    //such that d = gcd(p, q), ap + bq = d
-
-    let arr = [];
-    if (q == 0){
-        arr=[p,1,0];
-        return arr;
-    }
-
-    let vals;
-    vals = gcd(q, p % q);
-    let d = vals[0];
-    let a = vals[2];
-    let b = vals[1] - (p / q) * vals[2];
-    arr=[d,a,b];
-    return arr;
-}
+// export const gcd = (p, q) => {
+//     // general form: a(p) + b(q) = gcd(p, q)
+//     //such that d = gcd(p, q), ap + bq = d
+//     if (q === 0) {
+//         return [p, 1, 0];
+//     }
+//     let vals = gcd(q, p % q);
+//     let d = vals[0];
+//     let a = vals[2];
+//     let b = vals[1] - (p / q) * vals[2];
+//     return [d, a, b];
+// };
 
