@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, InputNumber, PageHeader, Row, Typography} from "antd";
+import {Alert, Button, Card, Col, Form, Input, InputNumber, message, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {hillEncrypt, hillDecrypt} from "../../utils/crypoFunctions";
+import {hillEncrypt, hillDecrypt, inverseKeyMatrix} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
-import {getFrequency} from "../../utils/generalFunctions";
+import {checkIfBinary, checkIfHex, getFrequency} from "../../utils/generalFunctions";
 
 const {Paragraph, Text} = Typography;
 
@@ -17,10 +17,14 @@ class Playfair extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
-        a: "5",
-        b: "17",
-        c: "4",
-        d: "15",
+        a: 5,
+        b: 17,
+        c: 4,
+        d: 15,
+        inv_a: 17,
+        inv_b: -21,
+        inv_c: -8,
+        inv_d: 75,
         key: "5 17 4 15",
         data: [],
     };
@@ -67,32 +71,48 @@ class Playfair extends Component {
 
     handleChangeA(value) {
         this.setState({
-            a: value || 5,
-        }, () => this.handleKeyChange());
+            a: Number(value),
+            mode: 1
+        });
     }
 
     handleChangeB(value) {
         this.setState({
-            b: value || 17,
-        }, () => this.handleKeyChange());
+            b: Number(value),
+            mode: 1
+        });
     }
 
     handleChangeC(value) {
         this.setState({
-            c: value || 4,
-        }, () => this.handleKeyChange());
+            c: Number(value),
+            mode: 1
+        },);
     }
 
     handleChangeD(value) {
         this.setState({
-            d: value || 15,
-        }, () => this.handleKeyChange());
+            d: Number(value),
+            mode: 1
+        });
     }
 
     handleKeyChange() {
+        let inv_key = inverseKeyMatrix([this.state.a, this.state.b, this.state.c, this.state.d]);
+        if (inv_key.length < 4) {
+            this.setState({
+                mode: 3
+            });
+            return;
+        }
         let key = this.state.a + " " + this.state.b + " " + this.state.c + " " + this.state.d;
         this.setState({
+            inv_a: inv_key[0],
+            inv_b: inv_key[1],
+            inv_c: inv_key[2],
+            inv_d: inv_key[3],
             key: key,
+            mode: 2
         }, () => this.handlePlainTextChange(this.state.plainText));
     }
 
@@ -118,24 +138,62 @@ class Playfair extends Component {
                         </Col>
                         <Col lg={11} md={23} sm={23} xs={23}>
                             <Row>
-                                <Card title="Encryption Parameters" bordered={false}>
-                                    <Form layout={"inline"}>
-                                        <Form.Item label={"Key Matrix"}>
-                                            <InputNumber value={this.state.a}
-                                                         onChange={this.handleChangeA.bind(this)}/>
-                                            <br/>
-                                            <InputNumber value={this.state.c}
-                                                         onChange={this.handleChangeC.bind(this)}/>
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <InputNumber value={this.state.b}
-                                                         onChange={this.handleChangeB.bind(this)}/>
+                                <Card title="Encryption Parameters" bordered={false}>{
+                                    (this.state.mode === 3) ? (
+                                        <Alert message="This key cannot be used for decryption, try another one"
+                                               type="error" showIcon/>) : (
+                                        (this.state.mode === 1) ?
+                                            <Alert message="Make sure to submit the new key when you change the matrix"
+                                                   type="info" showIcon/> : <Alert message={"Key matrix was updated."}
+                                                                                   type="success" showIcon/>
+                                    )
+                                }
+                                    <br/>
+                                    <Row>
+                                        <Col lg={11} md={23} sm={23} xs={23}>
 
-                                            <br/>
-                                            <InputNumber value={this.state.d}
-                                                         onChange={this.handleChangeD.bind(this)}/>
-                                        </Form.Item>
-                                    </Form>
+                                            <p>Key Matrix</p>
+                                            <Form layout={"inline"} title={"Key Matrix"}>
+                                                <Form.Item>
+                                                    <InputNumber value={this.state.a}
+                                                                 onChange={this.handleChangeA.bind(this)}/>
+                                                    <br/>
+                                                    <InputNumber value={this.state.c}
+                                                                 onChange={this.handleChangeC.bind(this)}/>
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <InputNumber value={this.state.b}
+                                                                 onChange={this.handleChangeB.bind(this)}/>
+                                                    <br/>
+                                                    <InputNumber value={this.state.d}
+                                                                 onChange={this.handleChangeD.bind(this)}/>
+                                                </Form.Item>
+                                            </Form>
+                                        </Col>
+                                        <Col lg={11} md={23} sm={23} xs={23}>
+                                            <p>Inverse Key Matrix</p>
+                                            <Form layout={"inline"} title={"Inverse Key Matrix"}>
+                                                <Form.Item>
+                                                    <InputNumber value={this.state.inv_a}
+                                                                 disabled={true}/>
+                                                    <br/>
+                                                    <InputNumber value={this.state.inv_c}
+                                                                 disabled={true}/>
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <InputNumber value={this.state.inv_b}
+                                                                 disabled={true}/>
+                                                    <br/>
+                                                    <InputNumber value={this.state.inv_d}
+                                                                 disabled={true}/>
+                                                </Form.Item>
+                                            </Form>
+                                        </Col>
+                                    </Row>
+                                    <br/>
+                                    <Button type="primary" onClick={this.handleKeyChange.bind(this)}>
+                                        Submit Key
+                                    </Button>
                                 </Card>
                             </Row>
                             <br/>

@@ -235,10 +235,6 @@ export const hillEncrypt = (keys, plaintext) => {
     if (plaintext.length % 2 === 1) {
         plaintext = plaintext + "x";
     }
-    if (keys.length !== 4) {
-        alert("key should consist of 4 integers");
-        return;
-    }
     for (let i = 0; i < 4; i++) keys[i] = keys[i] % 26;
     let ciphertext = "";
     for (let i = 0; i < plaintext.length; i += 2) {
@@ -247,10 +243,28 @@ export const hillEncrypt = (keys, plaintext) => {
     }
 
     for (let i in extras) {
-        console.log(i,extras[i]);
         ciphertext = [ciphertext.slice(0, i), extras[i], ciphertext.slice(i)].join('')
     }
     return ciphertext;
+};
+
+export const inverseKeyMatrix = (keys) => {
+    // calc inv matrix
+    let det = keys[0] * keys[3] - keys[1] * keys[2];
+    det = ((det % 26) + 26) % 26;
+    let di = 0;
+    for (let i = 0; i < 26; i++) {
+        if ((det * i) % 26 === 1) di = i;
+    }
+    if (di === 0) {
+        return [];
+    }
+    let ikeys = new Array(4);
+    ikeys[0] = (di * keys[3]) % 26;
+    ikeys[1] = (-1 * di * keys[1]) % 26;
+    ikeys[2] = (-1 * di * keys[2]) % 26;
+    ikeys[3] = di * keys[0];
+    return ikeys;
 };
 
 export const hillDecrypt = (keys, ciphertext) => {
@@ -264,22 +278,7 @@ export const hillDecrypt = (keys, ciphertext) => {
     }
     ciphertext = ciphertext.replace(/[^a-z]/g, "");
     for (let i = 0; i < 4; i++) keys[i] = keys[i] % 26;
-    // calc inv matrix
-    let det = keys[0] * keys[3] - keys[1] * keys[2];
-    det = ((det % 26) + 26) % 26;
-    let di = 0;
-    for (let i = 0; i < 26; i++) {
-        if ((det * i) % 26 === 1) di = i;
-    }
-    if (di === 0) {
-        alert("could not invert, try different key");
-        return;
-    }
-    let ikeys = new Array(4);
-    ikeys[0] = (di * keys[3]) % 26;
-    ikeys[1] = (-1 * di * keys[1]) % 26;
-    ikeys[2] = (-1 * di * keys[2]) % 26;
-    ikeys[3] = di * keys[0];
+    let ikeys = inverseKeyMatrix(keys);
     for (let i = 0; i < 4; i++) {
         if (ikeys[i] < 0) ikeys[i] += 26;
     }
