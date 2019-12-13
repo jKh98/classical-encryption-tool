@@ -4,7 +4,7 @@ import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-//import {playfairEncrypt, playfairDecrypt} from "../../utils/crypoFunctions";
+import {playfairEncrypt, playfairDecrypt, fillMatrix, strip, playfairMatrix} from "../../utils/crypoFunctions";
 import {vigenereEncrypt, vigenereDecrypt} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
@@ -30,7 +30,7 @@ class Playfair extends Component {
     }
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(vigenereEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(playfairEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
@@ -38,7 +38,7 @@ class Playfair extends Component {
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(vigenereDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(playfairDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
@@ -70,6 +70,10 @@ class Playfair extends Component {
             key: event.target.value,
             // key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
         }, () => this.handlePlainTextChange(this.state.plainText));
+    }
+
+    generateKey(key){
+        playfairMatrix(key);
     }
 
     render() {

@@ -157,6 +157,7 @@ export const playfairDecrypt = (keysquare, ciphertext) => {
     return plaintext;
 };
 
+//strip and fillMatrix are both used together
 export const strip = (aString) => {
 
     var splitString = "";
@@ -219,6 +220,27 @@ export const fillMatrix = () => {
         }
     }
     return matrix;
+}
+
+export const playfairMatrix = (key) => {
+    if (key) {
+        // create grid from key
+        const alphabet = ['abcdefghiklmnopqrstuvwxyz'];
+        const sanitizedKey = key.toLowerCase().replace('j', 'i').replace(/[^a-z]/g, '');
+        const keyGrid = [...new Set(`${sanitizedKey}${alphabet}`)];
+        this.grid = [];
+        for (let i = 0; i < keyGrid.length; i += 5) {
+            this.grid.push(keyGrid.slice(i, i + 5));
+        }
+    } else {
+        this.grid = [
+            ['a', 'b', 'c', 'd', 'e'],
+            ['f', 'g', 'h', 'i', 'k'],
+            ['l', 'm', 'n', 'o', 'p'],
+            ['q', 'r', 's', 't', 'u'],
+            ['v', 'w', 'x', 'y', 'z']
+        ];
+    }
 }
 
 export const hillEncrypt = (keys, plaintext) => {
@@ -292,3 +314,4 @@ export const hillDecrypt = (keys, ciphertext) => {
     }
     return plaintext;
 };
+
