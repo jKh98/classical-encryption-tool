@@ -97,6 +97,14 @@ export const vigenereDecrypt = (keyword, text) => {
 
 
 export const playfairEncrypt = (keysquare, plaintext) => {
+    plaintext = plaintext.toLowerCase();
+    let extras = {};
+    for (let i = 0; i < plaintext.length; i++) {
+        if (plaintext[i].match(/[^a-z]/g)) {
+            extras[i] = plaintext[i];
+        }
+    }
+    plaintext = plaintext.replace(/[^a-z]/g, "");
     while (plaintext.length % 2 !== 0) plaintext += "x";
     let ciphertext = "";
     let a, b, c, d;
@@ -125,11 +133,22 @@ export const playfairEncrypt = (keysquare, plaintext) => {
 
         ciphertext += c + d;
     }
+    for (let i in extras) {
+        ciphertext = [ciphertext.slice(0, i), extras[i], ciphertext.slice(i)].join('')
+    }
     return ciphertext;
 };
 
 export const playfairDecrypt = (keysquare, ciphertext) => {
     let plaintext = "";
+    let extras = [];
+    ciphertext = ciphertext.toLowerCase();
+    for (let i = 0; i < ciphertext.length; i++) {
+        if (ciphertext[i].match(/[^a-z]/g)) {
+            extras[i] = ciphertext[i];
+        }
+    }
+    ciphertext = ciphertext.replace(/[^a-z]/g, "");
     for (let i = 0; i < ciphertext.length; i += 2) {
         let a, b, c, d;
         a = ciphertext.charAt(i);
@@ -154,94 +173,23 @@ export const playfairDecrypt = (keysquare, ciphertext) => {
         }
         plaintext += c + d;
     }
+    for (let i in extras) {
+        plaintext = [plaintext.slice(0, i), extras[i], plaintext.slice(i)].join('')
+    }
     return plaintext;
 };
 
-//strip and fillMatrix are both used together
-export const strip = (aString) => {
-
-    var splitString = "";
-
-    for (var item in aString) {
-
-        var letter = aString.charAt(item);
-
-        // ignore whitespace and append to string
-        if (letter.search(/\s|\W|\d/igm) == -1) {
-            splitString += letter;
-        }
-    }
-    return splitString;
-}
-
-export const fillMatrix = () => {
-    var userInput = window.sessionStorage.getItem("kw");
-    var matrix = new Array(25);
-    var matrixIndex = 0;
-    var keyIndex = 0;
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-    // strip whitespace
-    userInput = strip(userInput);
-    userInput = userInput.toLowerCase();
-
-    // Fill in the keyword
-    while ( keyIndex < userInput.length ) {
-        var letter = userInput.charAt(keyIndex);
-        if ( matrix.indexOf(letter) === -1 ) {
-            matrix[matrixIndex] = letter;
-            matrixIndex++;
-        }
-        keyIndex++;
-    }
-    // Insert unique letters from the alphabet
-    for (var item in alphabet) {
-        var literal = alphabet.charAt(item);
-
-        //check both uppercase and lowercase letters
-        var letterNotInMatrix = (matrix.indexOf(literal) +
-            matrix.indexOf(literal.toUpperCase()) == -2);
-
-        // if the letter is not in the matrix (-1 + -1)
-        if ( letterNotInMatrix   ) {
-            // Skip i or j if already in matrix
-            if ( (literal === "i" || literal === "I") && (matrix.indexOf("j") === -1 &&
-                matrix.indexOf("J") === -1 ) ) {
-                matrix[matrixIndex] = literal;
-                matrixIndex++;
-            }
-            // replace j with i
-            else if ( (literal === "j" || literal === "J") &&
-                (matrix.indexOf("i") === -1 && matrix.indexOf("I") === -1 ) ) {}
-            else {
-                matrix[matrixIndex] = literal;
-                matrixIndex++;
-            }
-        }
-    }
-    return matrix;
-}
-
 export const playfairMatrix = (key) => {
+    let grid = [];
     if (key) {
         // create grid from key
-        const alphabet = ['abcdefghiklmnopqrstuvwxyz'];
         const sanitizedKey = key.toLowerCase().replace('j', 'i').replace(/[^a-z]/g, '');
-        const keyGrid = [...new Set(`${sanitizedKey}${alphabet}`)];
-        this.grid = [];
-        for (let i = 0; i < keyGrid.length; i += 5) {
-            this.grid.push(keyGrid.slice(i, i + 5));
-        }
+        grid = [...new Set(`${sanitizedKey}${'abcdefghiklmnopqrstuvwxyz'}`)];
     } else {
-        this.grid = [
-            ['a', 'b', 'c', 'd', 'e'],
-            ['f', 'g', 'h', 'i', 'k'],
-            ['l', 'm', 'n', 'o', 'p'],
-            ['q', 'r', 's', 't', 'u'],
-            ['v', 'w', 'x', 'y', 'z']
-        ];
+        grid = alpha;
     }
-}
+    return grid.toString().replace(/,/g, '');
+};
 
 export const hillEncrypt = (keys, plaintext) => {
     keys = keys.split(" ");
@@ -270,25 +218,6 @@ export const hillEncrypt = (keys, plaintext) => {
     return ciphertext;
 };
 
-export const inverseKeyMatrix = (keys) => {
-    // calc inv matrix
-    let det = keys[0] * keys[3] - keys[1] * keys[2];
-    det = ((det % 26) + 26) % 26;
-    let di = 0;
-    for (let i = 0; i < 26; i++) {
-        if ((det * i) % 26 === 1) di = i;
-    }
-    if (di === 0) {
-        return [];
-    }
-    let ikeys = new Array(4);
-    ikeys[0] = (di * keys[3]) % 26;
-    ikeys[1] = (-1 * di * keys[1]) % 26;
-    ikeys[2] = (-1 * di * keys[2]) % 26;
-    ikeys[3] = di * keys[0];
-    return ikeys;
-};
-
 export const hillDecrypt = (keys, ciphertext) => {
     keys = keys.split(" ");
     let extras = [];
@@ -313,5 +242,24 @@ export const hillDecrypt = (keys, ciphertext) => {
         plaintext = [plaintext.slice(0, i), extras[i], plaintext.slice(i)].join('')
     }
     return plaintext;
+};
+
+export const inverseKeyMatrix = (keys) => {
+    // calc inv matrix
+    let det = keys[0] * keys[3] - keys[1] * keys[2];
+    det = ((det % 26) + 26) % 26;
+    let di = 0;
+    for (let i = 0; i < 26; i++) {
+        if ((det * i) % 26 === 1) di = i;
+    }
+    if (di === 0) {
+        return [];
+    }
+    let ikeys = new Array(4);
+    ikeys[0] = (di * keys[3]) % 26;
+    ikeys[1] = (-1 * di * keys[1]) % 26;
+    ikeys[2] = (-1 * di * keys[2]) % 26;
+    ikeys[3] = di * keys[0];
+    return ikeys;
 };
 

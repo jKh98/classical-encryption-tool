@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Card, Col, Form, Input, PageHeader, Row, Typography} from "antd";
+import {Card, Col, Form, Input, InputNumber, PageHeader, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
-import {playfairEncrypt, playfairDecrypt, fillMatrix, strip, playfairMatrix} from "../../utils/crypoFunctions";
-import {vigenereEncrypt, vigenereDecrypt} from "../../utils/crypoFunctions";
+import {playfairEncrypt, playfairDecrypt, playfairMatrix} from "../../utils/crypoFunctions";
 import {convert, convert2Text, convertFromText} from "../../utils/conversions";
 import {getFrequency} from "../../utils/generalFunctions";
 
 const {Paragraph, Text} = Typography;
-const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-const LETTER = 'X';
-const MAX_LENGTH = 5;
 
 
 class Playfair extends Component {
@@ -22,15 +18,20 @@ class Playfair extends Component {
         cipherText: '',
         plainTextMode: 'Text',
         cipherTextMode: 'Text',
+        key_matrix: "",
         key: 'PLAYFAIR',
     };
 
     componentDidMount() {
-        this.handlePlainTextChange(this.state.plainText);
+        this.setState({
+            key_matrix: playfairMatrix(this.state.key)
+        }, () => {
+            this.handlePlainTextChange(this.state.plainText)
+        });
     }
 
     handlePlainTextChange(value) {
-        let ct = convertFromText(playfairEncrypt(this.state.key, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
+        let ct = convertFromText(playfairEncrypt(this.state.key_matrix, convert2Text(value, this.state.plainTextMode)), this.state.cipherTextMode);
         this.setState({
             plainText: value,
             cipherText: ct,
@@ -38,7 +39,7 @@ class Playfair extends Component {
     }
 
     handleCipherTextChange(value) {
-        let pt = convertFromText(playfairDecrypt(this.state.key, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
+        let pt = convertFromText(playfairDecrypt(this.state.key_matrix, convert2Text(value, this.state.cipherTextMode)), this.state.plainTextMode);
         this.setState({
             plainText: pt,
             cipherText: value,
@@ -68,12 +69,10 @@ class Playfair extends Component {
     handleKeyChange(event) {
         this.setState({
             key: event.target.value,
-            // key: getVigenereKey((event.target.value !== '') ? event.target.value : 'abcdefghijklmnopqrstuvwxyz'),
-        }, () => this.handlePlainTextChange(this.state.plainText));
-    }
-
-    generateKey(key){
-        playfairMatrix(key);
+            key_matrix: playfairMatrix(event.target.value)
+        }, () => {
+            this.handlePlainTextChange(this.state.plainText)
+        });
     }
 
     render() {
@@ -100,9 +99,97 @@ class Playfair extends Component {
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
                                     <Form layout={"inline"}>
-                                        <Form.Item label={"Key to seed table: "}>
+                                        <Form.Item label={"Key to seed table"}>
                                             <Input defaultValue={this.state.key}
                                                    onChange={this.handleKeyChange.bind(this)}/>
+                                        </Form.Item>
+                                        <br/>
+                                        <Form.Item label={"Key Matrix"}>
+                                            <Input.Group compact>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[0]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[1]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[2]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[3]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[4]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                            </Input.Group>
+                                            <Input.Group compact>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[5]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[6]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[7]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[8]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[9]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                            </Input.Group>
+                                            <Input.Group compact>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[10]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[11]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[12]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[13]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[14]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                            </Input.Group>
+                                            <Input.Group compact>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[15]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[16]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[17]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[18]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[19]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                            </Input.Group>
+                                            <Input.Group compact>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[20]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[21]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[22]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[23]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                                <Input style={{width: '20%'}} value={this.state.key_matrix[24]}
+                                                       size={"small"}
+                                                       disabled={true}/>
+                                            </Input.Group>
                                         </Form.Item>
                                     </Form>
                                 </Card>
