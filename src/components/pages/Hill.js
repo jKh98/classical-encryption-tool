@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import {Alert, Button, Card, Col, Form, Input, InputNumber, message, PageHeader, Row, Typography} from "antd";
+import {Alert, Button, Card, Col, Form, Input, InputNumber, message, PageHeader, Popover, Row, Typography} from "antd";
 import CustomGraph from "../charts/CustomGraph";
 import Delayed from "../Delayed";
 import TextContainerCoupler from "../TextContainerCoupler";
@@ -156,18 +156,26 @@ class Playfair extends Component {
                                             <Form layout={"inline"} title={"Key Matrix"}>
                                                 <Form.Item>
                                                     <Input.Group compact>
-                                                        <InputNumber value={this.state.a}
-                                                                     onChange={this.handleChangeA.bind(this)}/>
-                                                        <InputNumber value={this.state.b}
-                                                                     onChange={this.handleChangeB.bind(this)}/>
+                                                        <Popover content={"a"}>
+                                                            <InputNumber value={this.state.a}
+                                                                         onChange={this.handleChangeA.bind(this)}/>
+                                                        </Popover>
+                                                        <Popover content={"b"}>
+                                                            <InputNumber value={this.state.b}
+                                                                         onChange={this.handleChangeB.bind(this)}/>
+                                                        </Popover>
                                                     </Input.Group>
                                                 </Form.Item>
                                                 <Form.Item>
                                                     <Input.Group compact>
-                                                        <InputNumber value={this.state.c}
-                                                                     onChange={this.handleChangeC.bind(this)}/>
-                                                        <InputNumber value={this.state.d}
-                                                                     onChange={this.handleChangeD.bind(this)}/>
+                                                        <Popover content={"c"}>
+                                                            <InputNumber value={this.state.c}
+                                                                         onChange={this.handleChangeC.bind(this)}/>
+                                                        </Popover>
+                                                        <Popover content={"d"}>
+                                                            <InputNumber value={this.state.d}
+                                                                         onChange={this.handleChangeD.bind(this)}/>
+                                                        </Popover>
                                                     </Input.Group>
                                                 </Form.Item>
                                             </Form>
@@ -177,18 +185,26 @@ class Playfair extends Component {
                                             <Form layout={"inline"} title={"Inverse Key Matrix"}>
                                                 <Form.Item>
                                                     <Input.Group compact>
-                                                        <InputNumber value={this.state.inv_a}
-                                                                     disabled={true}/>
-                                                        <InputNumber value={this.state.inv_b}
-                                                                     disabled={true}/>
+                                                        <Popover content={<p>a<sup>-1</sup></p>}>
+                                                            <InputNumber value={this.state.inv_a}
+                                                                         disabled={true}/>
+                                                        </Popover>
+                                                        <Popover content={<p>b<sup>-1</sup></p>}>
+                                                            <InputNumber value={this.state.inv_b}
+                                                                         disabled={true}/>
+                                                        </Popover>
                                                     </Input.Group>
                                                 </Form.Item>
                                                 <Form.Item>
                                                     <Input.Group compact>
-                                                        <InputNumber value={this.state.inv_c}
-                                                                     disabled={true}/>
-                                                        <InputNumber value={this.state.inv_d}
-                                                                     disabled={true}/>
+                                                        <Popover content={<p>c<sup>-1</sup></p>}>
+                                                            <InputNumber value={this.state.inv_c}
+                                                                         disabled={true}/>
+                                                        </Popover>
+                                                        <Popover content={<p>d<sup>-1</sup></p>}>
+                                                            <InputNumber value={this.state.inv_d}
+                                                                         disabled={true}/>
+                                                        </Popover>
                                                     </Input.Group>
                                                 </Form.Item>
                                             </Form>
