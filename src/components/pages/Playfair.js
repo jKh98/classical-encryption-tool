@@ -208,16 +208,30 @@ class Playfair extends Component {
                             <Row>
                                 <Card ref={'test'} title="Playfair Cipher Encoding and Decoding" bordered={false}>
                                     <Paragraph>
-                                        Playfair cipher is a method that encrypts alphabetic text by using a series of
-                                        successive Caesar
-                                        ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
-                                        based on the letters
-                                        of a provided keyword. The cipher
-                                        is easy to understand and implement, but it resisted breaking for three
-                                        centuries. The complexity of breaking increases with as the keyword length
-                                        increases, because the key of the cipher will be reused until it covers all
-                                        message characters. Having a keyword of length greater than or equal to the
-                                        message length maximizes the usage of different Caesar ciphers.
+                                        The Playfair algorithm is based on the use of a <Text code>5x5</Text> matrix of letters
+                                        constructed using a keyword. The matrix is constructed by filling in the
+                                        letters of the keyword (minus duplicates) from left to right and from top to
+                                        bottom,
+                                        and then filling in the remainder of the matrix with the remaining letters in
+                                        alphabetic order. The letters I and J count as one letter. Plaintext is
+                                        encrypted two letters at a time, according to the following rules:
+                                        <ol>
+                                        <li> Repeating plaintext letters that are in the same pair are
+                                        separated with a
+                                            filler letter, such as x.</li>
+                                        <li> Two plaintext letters that fall in the same row of the
+                                        matrix are each
+                                        replaced by the letter to the right, with the first element of the row
+                                        circularly
+                                            following the last.</li>
+                                        <li> Two plaintext letters that fall in the same column are
+                                        each replaced by the
+                                        letter beneath, with the top element of the column circularly following the
+                                            last.</li>
+                                        <li> Otherwise, each plaintext letter in a pair is replaced by
+                                        the letter that lies
+                                            in its own row and the column occupied by the other plaintext letter.</li>
+                                        </ol>
                                     </Paragraph>
                                 </Card>
                             </Row>

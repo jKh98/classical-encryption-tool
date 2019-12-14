@@ -61,14 +61,12 @@ class Playfair extends Component {
                                 <Card title="Inputs" bordered={false}>
                                     <Form layout={"inline"}>
                                         <Form.Item label={"Enter your inputs p and q"}>
-                                            <Popover content={"HI"}>
                                                 <Form.Item label={"p"}>
                                                     <InputNumber size="medium" /*min={Number(this.state.p + 1)}*/
                                                         //max={1000000}
                                                                  value={this.state.p}
                                                                  onChange={this.handleValuesOfp.bind(this)}/>
                                                 </Form.Item>
-                                            </Popover>
 
                                             <Form.Item label={"q"}>
                                                 <InputNumber size="medium" /*min={1} max={Number((this.state.p) - 1)}*/
