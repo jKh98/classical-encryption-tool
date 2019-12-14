@@ -155,18 +155,20 @@ class Playfair extends Component {
                                             <p>Key Matrix</p>
                                             <Form layout={"inline"} title={"Key Matrix"}>
                                                 <Form.Item>
-                                                    <InputNumber value={this.state.a}
-                                                                 onChange={this.handleChangeA.bind(this)}/>
-                                                    <br/>
-                                                    <InputNumber value={this.state.c}
-                                                                 onChange={this.handleChangeC.bind(this)}/>
+                                                    <Input.Group compact>
+                                                        <InputNumber value={this.state.a}
+                                                                     onChange={this.handleChangeA.bind(this)}/>
+                                                        <InputNumber value={this.state.b}
+                                                                     onChange={this.handleChangeB.bind(this)}/>
+                                                    </Input.Group>
                                                 </Form.Item>
                                                 <Form.Item>
-                                                    <InputNumber value={this.state.b}
-                                                                 onChange={this.handleChangeB.bind(this)}/>
-                                                    <br/>
-                                                    <InputNumber value={this.state.d}
-                                                                 onChange={this.handleChangeD.bind(this)}/>
+                                                    <Input.Group compact>
+                                                        <InputNumber value={this.state.c}
+                                                                     onChange={this.handleChangeC.bind(this)}/>
+                                                        <InputNumber value={this.state.d}
+                                                                     onChange={this.handleChangeD.bind(this)}/>
+                                                    </Input.Group>
                                                 </Form.Item>
                                             </Form>
                                         </Col>
@@ -174,18 +176,20 @@ class Playfair extends Component {
                                             <p>Inverse Key Matrix</p>
                                             <Form layout={"inline"} title={"Inverse Key Matrix"}>
                                                 <Form.Item>
-                                                    <InputNumber value={this.state.inv_a}
-                                                                 disabled={true}/>
-                                                    <br/>
-                                                    <InputNumber value={this.state.inv_c}
-                                                                 disabled={true}/>
+                                                    <Input.Group compact>
+                                                        <InputNumber value={this.state.inv_a}
+                                                                     disabled={true}/>
+                                                        <InputNumber value={this.state.inv_b}
+                                                                     disabled={true}/>
+                                                    </Input.Group>
                                                 </Form.Item>
                                                 <Form.Item>
-                                                    <InputNumber value={this.state.inv_b}
-                                                                 disabled={true}/>
-                                                    <br/>
-                                                    <InputNumber value={this.state.inv_d}
-                                                                 disabled={true}/>
+                                                    <Input.Group compact>
+                                                        <InputNumber value={this.state.inv_c}
+                                                                     disabled={true}/>
+                                                        <InputNumber value={this.state.inv_d}
+                                                                     disabled={true}/>
+                                                    </Input.Group>
                                                 </Form.Item>
                                             </Form>
                                         </Col>
