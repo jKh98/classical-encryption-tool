@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Skeleton} from "antd";
 
 class Delayed extends React.Component {
 
@@ -15,7 +16,7 @@ class Delayed extends React.Component {
     }
 
     render() {
-        return this.state.hidden ? '' : this.props.children;
+        return this.state.hidden ? <Skeleton /> : this.props.children;
     }
 }
 

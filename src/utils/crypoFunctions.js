@@ -1,7 +1,5 @@
-//import 'mathjs';
 
 const alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-// const alphaUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 export const affineEncrypt = (a, b, text) => {
     a = parseInt(a);
@@ -186,7 +184,7 @@ export const playfairMatrix = (key) => {
         const sanitizedKey = key.toLowerCase().replace('j', 'i').replace(/[^a-z]/g, '');
         grid = [...new Set(`${sanitizedKey}${'abcdefghiklmnopqrstuvwxyz'}`)];
     } else {
-        grid = alpha;
+        grid = alpha.filter((item)=> item!=='j')
     }
     return grid.toString().replace(/,/g, '');
 };

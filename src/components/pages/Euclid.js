@@ -61,18 +61,19 @@ class Playfair extends Component {
                                 <Card title="Inputs" bordered={false}>
                                     <Form layout={"inline"}>
                                         <Form.Item label={"Enter your inputs p and q"}>
-                                                <Form.Item label={"p"}>
-                                                    <InputNumber size="medium" /*min={Number(this.state.p + 1)}*/
-                                                        //max={1000000}
-                                                                 value={this.state.p}
-                                                                 onChange={this.handleValuesOfp.bind(this)}/>
-                                                </Form.Item>
+                                        </Form.Item>
+                                        <br/>
+                                        <Form.Item label={"p"}>
+                                            <InputNumber size="medium" /*min={Number(this.state.p + 1)}*/
+                                                //max={1000000}
+                                                         value={this.state.p}
+                                                         onChange={this.handleValuesOfp.bind(this)}/>
+                                        </Form.Item>
 
-                                            <Form.Item label={"q"}>
-                                                <InputNumber size="medium" /*min={1} max={Number((this.state.p) - 1)}*/
-                                                             value={this.state.q}
-                                                             onChange={this.handleValuesOfq.bind(this)}/>
-                                            </Form.Item>
+                                        <Form.Item label={"q"}>
+                                            <InputNumber size="medium" /*min={1} max={Number((this.state.p) - 1)}*/
+                                                         value={this.state.q}
+                                                         onChange={this.handleValuesOfq.bind(this)}/>
                                         </Form.Item>
                                     </Form>
                                 </Card>
@@ -105,17 +106,22 @@ class Playfair extends Component {
                         </Col>
                     </Row>
                     <br/>
-                    <Row>
-                        <Card ref={'test'} title="Extended-Euclid Algorithm Encoding and Decoding"
-                              bordered={false}>
-                            <Paragraph>
-                                The Extended-Euclid Algorithm is a method that finds the multiplicative inverse
-                                m of an integer
-                                modulo another integer.
-                                The input is two non-negative integers p and q.
-                                The output is <Text code>ap + bq = d</Text> where <Text code>d = gcd(p, q)</Text>.
-                            </Paragraph>
-                        </Card>
+                    <Row type="flex" justify="space-around" align="top">
+                        <Col lg={23} md={23} sm={23} xs={23}>
+                            <Row>
+                                <Card ref={'test'} title="Extended-Euclid Algorithm Encoding and Decoding"
+                                      bordered={false}>
+                                    <Paragraph>
+                                        The Extended-Euclid Algorithm is a method that finds the multiplicative inverse
+                                        m of an integer
+                                        modulo another integer.
+                                        The input is two non-negative integers p and q.
+                                        The output is <Text code>ap + bq = d</Text> where <Text code>d = gcd(p,
+                                        q)</Text>.
+                                    </Paragraph>
+                                </Card>
+                            </Row>
+                        </Col>
                     </Row>
                 </div>
             </div>

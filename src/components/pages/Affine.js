@@ -101,28 +101,30 @@ class Affine extends Component {
                         <Col lg={11} md={23} sm={23} xs={23}>
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
-                                    <Form layout={"inline"}>
-                                        <Popover content={""}>
-                                            <Form.Item label={"SLOPE / A"}>
-                                                <InputNumber size="medium" min={0} max={11}
-                                                             formatter={value => (a[value])}
-                                                             defaultValue={2}
-                                                             onChange={this.handleValuesOfA.bind(this)}/>
-                                            </Form.Item>
-                                        </Popover>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Form layout={"inline"}>
+                                            <Popover content={""}>
+                                                <Form.Item label={"SLOPE / A"}>
+                                                    <InputNumber size="medium" min={0} max={11}
+                                                                 formatter={value => (a[value])}
+                                                                 defaultValue={2}
+                                                                 onChange={this.handleValuesOfA.bind(this)}/>
+                                                </Form.Item>
+                                            </Popover>
 
-                                        <Form.Item label={"INTERCEPT / B"}>
-                                            <InputNumber size="medium" min={1} max={100000}
-                                                         defaultValue={this.state.b}
-                                                         onChange={this.handleValuesOfB.bind(this)}/>
-                                        </Form.Item>
-                                    </Form>
+                                            <Form.Item label={"INTERCEPT / B"}>
+                                                <InputNumber size="medium" min={1} max={100000}
+                                                             defaultValue={this.state.b}
+                                                             onChange={this.handleValuesOfB.bind(this)}/>
+                                            </Form.Item>
+                                        </Form>
+                                    </Delayed>
                                 </Card>
                             </Row>
                             <br/>
                             <Row>
                                 <Card title="Letter Frequency" bordered={false}>
-                                    <Delayed waitBeforeShow={500}>
+                                    <Delayed waitBeforeShow={250}>
                                         <CustomGraph type='line'
                                                      data={this.state.data}/>
                                     </Delayed>
@@ -131,24 +133,26 @@ class Affine extends Component {
                             <br/>
                             <Row>
                                 <Card ref={'test'} title="Affine Cipher Encoding and Decoding" bordered={false}>
-                                    <Paragraph>
-                                        In affine cipher each letter in an alphabet is mapped to its numeric index.
-                                        The
-                                        letter is then encrypted using a modular arithmetic, and converted back to a
-                                        letter
-                                        based on the new index. In the English alphabet consisting of <Text
-                                        code>26</Text> characters, the function <Text code>(ax + b) mod
-                                        26</Text> is used to encipher each letter. The multiplicative inverse
-                                        of <Text code>a</Text> exists if <Text
-                                        code>a</Text> and <Text code>26</Text> are coprime. Hence values
-                                        that <Text code>a</Text> could have are <Text code>1, 3, 5, 7, 9,
-                                        11, 15, 17, 19, 21, 23, and 25</Text>. The value <Text
-                                        code>b</Text> is the shift of the cipher and could be any arbitrary value
-                                        greater than 1. The function used to decode the cipher text is <Text
-                                        code>a<sup>-1</sup>(x - b) mod 26</Text>, where <Text
-                                        code>a<sup>-1</sup></Text> is the multiplicative inverse of with respect
-                                        to <Text code>26</Text>.
-                                    </Paragraph>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Paragraph>
+                                            In affine cipher each letter in an alphabet is mapped to its numeric index.
+                                            The
+                                            letter is then encrypted using a modular arithmetic, and converted back to a
+                                            letter
+                                            based on the new index. In the English alphabet consisting of <Text
+                                            code>26</Text> characters, the function <Text code>(ax + b) mod
+                                            26</Text> is used to encipher each letter. The multiplicative inverse
+                                            of <Text code>a</Text> exists if <Text
+                                            code>a</Text> and <Text code>26</Text> are coprime. Hence values
+                                            that <Text code>a</Text> could have are <Text code>1, 3, 5, 7, 9,
+                                            11, 15, 17, 19, 21, 23, and 25</Text>. The value <Text
+                                            code>b</Text> is the shift of the cipher and could be any arbitrary value
+                                            greater than 1. The function used to decode the cipher text is <Text
+                                            code>a<sup>-1</sup>(x - b) mod 26</Text>, where <Text
+                                            code>a<sup>-1</sup></Text> is the multiplicative inverse of with respect
+                                            to <Text code>26</Text>.
+                                        </Paragraph>
+                                    </Delayed>
                                 </Card>
                             </Row>
                         </Col>

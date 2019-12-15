@@ -91,18 +91,20 @@ class Vigenere extends Component {
                         <Col lg={11} md={23} sm={23} xs={23}>
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
-                                    <Form layout={"inline"}>
-                                        <Form.Item label={"Vigenère  Key"}>
-                                            <Input defaultValue={this.state.key}
-                                                   onChange={this.handleKeyChange.bind(this)}/>
-                                        </Form.Item>
-                                    </Form>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Form layout={"inline"}>
+                                            <Form.Item label={"Vigenère  Key"}>
+                                                <Input defaultValue={this.state.key}
+                                                       onChange={this.handleKeyChange.bind(this)}/>
+                                            </Form.Item>
+                                        </Form>
+                                    </Delayed>
                                 </Card>
                             </Row>
                             <br/>
                             <Row>
                                 <Card title="Letter Frequency" bordered={false}>
-                                    <Delayed waitBeforeShow={500}>
+                                    <Delayed waitBeforeShow={250}>
                                         <CustomGraph type='line'
                                                      data={this.state.data}/>
                                     </Delayed>
@@ -112,18 +114,21 @@ class Vigenere extends Component {
                             <br/>
                             <Row>
                                 <Card ref={'test'} title="Vigenère Cipher Encoding and Decoding" bordered={false}>
-                                    <Paragraph>
-                                        Vigenère cipher is a method that encrypts alphabetic text by using a series of
-                                        successive Caesar
-                                        ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
-                                        based on the letters
-                                        of a provided keyword. The cipher
-                                        is easy to understand and implement, but it resisted breaking for three
-                                        centuries. The complexity of breaking increases with as the keyword length
-                                        increases, because the key of the cipher will be reused until it covers all
-                                        message characters. Having a keyword of length greater than or equal to the
-                                        message length maximizes the usage of different Caesar ciphers.
-                                    </Paragraph>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Paragraph>
+                                            Vigenère cipher is a method that encrypts alphabetic text by using a series
+                                            of
+                                            successive Caesar
+                                            ciphers (which is effectively an Affine Cipher with <Text code>a = 1</Text>)
+                                            based on the letters
+                                            of a provided keyword. The cipher
+                                            is easy to understand and implement, but it resisted breaking for three
+                                            centuries. The complexity of breaking increases with as the keyword length
+                                            increases, because the key of the cipher will be reused until it covers all
+                                            message characters. Having a keyword of length greater than or equal to the
+                                            message length maximizes the usage of different Caesar ciphers.
+                                        </Paragraph>
+                                    </Delayed>
                                 </Card>
                             </Row>
                         </Col>

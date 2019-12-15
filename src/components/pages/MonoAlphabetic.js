@@ -92,20 +92,22 @@ class MonoAlphabetic extends Component {
                         <Col lg={11} md={23} sm={23} xs={23}>
                             <Row>
                                 <Card title="Encryption Parameters" bordered={false}>
-                                    <Form layout={"inline"}>
-                                        <Form.Item label={"Mono-Alphabetic Key"}>
-                                            <Input value={this.state.key}
-                                                   type={''}/>
-                                            <Button onClick={this.handleButtonClick.bind(this)}
-                                                    type="primary">Shuffle</Button>
-                                        </Form.Item>
-                                    </Form>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Form layout={"inline"}>
+                                            <Form.Item label={"Mono-Alphabetic Key"}>
+                                                <Input value={this.state.key}
+                                                       type={''}/>
+                                                <Button onClick={this.handleButtonClick.bind(this)}
+                                                        type="primary">Shuffle</Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </Delayed>
                                 </Card>
                             </Row>
                             <br/>
                             <Row>
                                 <Card title="Letter Frequency" bordered={false}>
-                                    <Delayed waitBeforeShow={500}>
+                                    <Delayed waitBeforeShow={250}>
                                         <CustomGraph type='line'
                                                      data={this.state.data}/>
                                     </Delayed>
@@ -115,15 +117,20 @@ class MonoAlphabetic extends Component {
                             <Row>
                                 <Card ref={'test'} title="Mono-Alphabetic Cipher Encoding and Decoding"
                                       bordered={false}>
-                                    <Paragraph>
-                                        A monoalphabetical cipher fixes an alphabetical substitution to be used for the
-                                        entire message. The substitution randomly shuffles the original alphabetical
-                                        order and maps the original index of each letter to a new index based on the new
-                                        jumbled sequence . The new alphabetical sequence may be a shifted, reversed,
-                                        mixed or deranged version of the original alphabet alphabet. Knowing the new and
-                                        the
-                                        original sequences allows for easy encryption and decryption.
-                                    </Paragraph>
+                                    <Delayed waitBeforeShow={250}>
+                                        <Paragraph>
+                                            A monoalphabetical cipher fixes an alphabetical substitution to be used for
+                                            the
+                                            entire message. The substitution randomly shuffles the original alphabetical
+                                            order and maps the original index of each letter to a new index based on the
+                                            new
+                                            jumbled sequence . The new alphabetical sequence may be a shifted, reversed,
+                                            mixed or deranged version of the original alphabet alphabet. Knowing the new
+                                            and
+                                            the
+                                            original sequences allows for easy encryption and decryption.
+                                        </Paragraph>
+                                    </Delayed>
                                 </Card>
                             </Row>
                         </Col>
