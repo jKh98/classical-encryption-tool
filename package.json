@@ -2,6 +2,8 @@
   "name": "eece-455-proj",
   "version": "0.1.0",
   "private": true,
+  "author": "Jihad Al Khurfan",
+  "description": "A simple tool that explores various classical encryption techniques with the ability to compare statistical diffusion after and before encryption.",
   "homepage": "./",
   "main": "public/electron.js",
   "dependencies": {
