@@ -1,7 +1,7 @@
 # Classical Encryption Tool
+This is a ReactJS educational web application for cryptography class. This web app can be exported as a static webpage or as an ElectronJS execuable.
 
 ## About
-This is a ReactJS educational web application for cryptography class. This web app can be exported as a static webpage or as an ElectronJS execuable.
 The app covers most of the classical encryption techniques such as: 
 
 * Affine cipher
@@ -20,7 +20,7 @@ For each cipher, user can transform plaintext to ciphertext and vice versa. The 
 The app aslo shows a graph showing alphabet dissemination for each cipher.
 
 ## Usage
-* '<npm install>' to install all req'd dependencies
-* '<npm start>' to start the local server (this project uses create-react-app)
-* '<npm run electron-pack>' to build a windows installer executable
+* `<npm install>` to install all req'd dependencies
+* `<npm start>` to start the local server (this project uses create-react-app)
+* `<npm run electron-pack>` to build a windows installer executable
 
