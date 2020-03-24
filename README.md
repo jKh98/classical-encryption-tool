@@ -1,5 +1,5 @@
 # Classical Encryption Tool
-This is a ReactJS educational web application for cryptography class. This web app can be exported as a static webpage or as an ElectronJS execuable.
+This is a [ReactJS](https://reactjs.org) educational web application for cryptography class. This web app can be exported as a static webpage or as an [ElectronJS](https://www.electronjs.org) execuable.
 
 ## About
 The app covers most of the classical encryption techniques such as: 
