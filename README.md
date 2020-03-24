@@ -20,7 +20,7 @@ For each cipher, user can transform plaintext to ciphertext and vice versa. The 
 The app aslo shows a graph showing alphabet dissemination for each cipher.
 
 ## Usage
-* `<npm install>` to install all req'd dependencies
+* `<npm install>` to install all requiredd dependencies
 * `<npm start>` to start the local server (this project uses create-react-app)
 * `<npm run electron-pack>` to build a windows installer executable
 
